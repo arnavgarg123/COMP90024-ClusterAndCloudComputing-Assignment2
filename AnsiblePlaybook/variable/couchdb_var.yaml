@@ -1,0 +1,14 @@
+couch_instances:
+  - name: instance1
+    volumes: ["vol-1"]
+  - name: instance2
+    volumes: ["vol-2"]
+
+volumes:
+  - device: /dev/vdb
+    mountpoint: /opt/couchdb/data
+  - device: /dev/vdb
+    mountpoint: /opt/couchdb/data
+
+db_username: admin
+db_password: admin
