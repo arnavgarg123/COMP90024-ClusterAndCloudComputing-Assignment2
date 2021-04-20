@@ -1,0 +1,8 @@
+- name: Install Dependencies
+  tags: always
+  become: yes
+  apt:
+    name: ['docker.io','docker-compose','python3-apt','python-apt','aptitude']
+    state: latest
+    install_recommends: yes
+    update_cache: yes
