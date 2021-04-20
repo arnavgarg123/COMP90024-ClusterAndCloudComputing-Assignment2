@@ -5,7 +5,7 @@
     path: "{{ couch_dir }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    rescurse: yes
+    recurse: yes
     state: directory
 
 - name: Create Compose in cloud
