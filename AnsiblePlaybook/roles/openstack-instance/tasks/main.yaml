@@ -31,3 +31,11 @@
     search_regex: OpenSSH
   loop: '{{ os_instance.results }}'
   when: item.openstack is defined
+
+# Add hosts to in memorry storage
+- name: Add host
+  add_host:
+    name: '{{ item.openstack.public_v4 }}'
+    groups: db_harvestor
+  loop: '{{ os_instance.results }}'
+  when: item.openstack is defined
