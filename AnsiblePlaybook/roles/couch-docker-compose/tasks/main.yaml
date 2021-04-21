@@ -12,7 +12,7 @@
   tags: 'couchdb'
   become: yes
   template:
-    src: ../../../../CouchDB-Cluster
+    src: ./docker-compose.yaml.j2
     dest: '{{ couch_dir }}/docker-compose.yaml'
     owner: '{{ ansible_user }}'
     group: "{{ ansible_user }}"
