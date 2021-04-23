@@ -14,15 +14,15 @@
 #
 couch_instances:
   - name: instance1
-    volumes: ["vol-1"]
+    volumes: ["vol-11"]
   - name: instance2
-    volumes: ["vol-2"]
+    volumes: ["vol-22"]
 
 volumes:
   - device: /dev/vdb
-    mountpoint: /opt/couchdb/data
-  - device: /dev/vdb
-    mountpoint: /opt/couchdb/data
+    mountpoint: /var/lib/docker
+#  - device: /dev/vdb
+#    mountpoint: /opt/couchdb/data
 
 db_username: admin
 db_password: admin

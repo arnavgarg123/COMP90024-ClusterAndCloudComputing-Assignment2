@@ -12,6 +12,6 @@
 #
 # Location: India, Melbourne, Singapore
 #
-volumes:
-  - mountpoint: /var/lib/docker
-  - mountpoint: /data
+#volumes:
+#  - mountpoint: /var/lib/docker
+#  - mountpoint: /data
