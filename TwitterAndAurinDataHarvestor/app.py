@@ -15,12 +15,23 @@
 import re
 import sys
 import time
-
+import gdown
 import tweepy
 from tweepy import OAuthHandler
+import os
+from sentiment_analyse import sentiment
 
 file = sys.argv[1]
 a = open(file, encoding="utf8")
+
+if not 'model.h5' in os.listdir('./'):
+    print('---------------downloading-----------------')
+    url = 'https://drive.google.com/u/0/uc?export=download&confirm=2uh4&id=1E8Xg3-gse4EhbqwM-njPJLgShYZOXwso'
+    output = 'model.h5'
+    gdown.download(url, output, quiet=False)
+    url = 'https://drive.google.com/u/0/uc?id=1jyRAKBLM7THKRJg7XSDIe1Jt2YpzWs4o&export=download'
+    output = 'tokenizer.pickle'
+    gdown.download(url, output, quiet=False)
 
 consumer_api_key = a.readline()[:-1].split(":")[1]
 consumer_api_secret = a.readline()[:-1].split(":")[1]
@@ -33,16 +44,16 @@ api = tweepy.API(authorizer, timeout=15, wait_on_rate_limit=True)
 
 all_tweets = []
 search_query = ''
-geo = api.geo_search(query="Melbourne", granularity="city")[0].id
+geo = api.geo_search(query="Sydney", granularity="city")[0].id
 print(geo)
 start_time = time.time()
-for tweet in tweepy.Cursor(api.search, q="place:%s" % geo, lang='en').items(2000):
-    all_tweets.append([tweet.user.id, tweet.text, tweet.created_at, tweet.place])
-j = 0
-b=open('sport.json', "a")
+
+senti=sentiment()
+
+for tweet in tweepy.Cursor(api.search, q="place:%s" % geo, lang='en', result_type='recent').items(10):
+    all_tweets.append([tweet.user.id, tweet.text, tweet.created_at, tweet.place, senti.sentiment_analysis(tweet.text)[0][1]])
+
 for i in all_tweets:
-    b.write(str(i)+"\n")
-    print(j, i)
-    j = j + 1
+    print(i[-1],i[1])
 
 print("--- %s seconds ---" % (time.time() - start_time))
