@@ -34,6 +34,6 @@
     - role: couch-common
     - role: couch-volumes
     - role: couch-docker
-    - role: couch-docker-compose
     - role: git-clone
-#    - role: nlp-model
+    - role: docker-compose
+    
