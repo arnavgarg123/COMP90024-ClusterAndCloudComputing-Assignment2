@@ -23,6 +23,7 @@
     state: directory
 
 - name: clone a repository
+  become: yes
   git:
     repo: 'https://github.com/arnavgarg123/COMP90024-ClusterAndCloudComputing-Assignment2.git'
     dest: "{{ git_dir }}"
