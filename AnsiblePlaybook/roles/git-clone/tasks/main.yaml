@@ -28,3 +28,22 @@
     repo: 'https://github.com/arnavgarg123/COMP90024-ClusterAndCloudComputing-Assignment2.git'
     dest: "{{ git_dir }}"
     update: yes
+
+- name: Create ip file
+  tags: always
+  become: yes
+  file:
+    path: "{{ ip_path }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    state: touch
+
+- name: Add ip to instances
+  become: yes
+  lineinfile:
+    path: '{{ ip_path }}'
+    #regexp: '.*{{ item }}$'
+    line: "{{ item }}"
+    state: present
+  #when: hostvars[item].ansible_host is defined
+  with_items: "{{ groups.db_harvestor }}"

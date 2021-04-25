@@ -20,9 +20,5 @@
   loop: "{{ proxy_unimelb }}"
   when: proxy_unimelb is defined
 
-- name: Add ip to instances
-  become: yes
-  lineinfile:
-    path: '{{ ip_path }}'
-    line: '{{ db_harvest }}'
-  when: db_harvest is defined
+
+  
