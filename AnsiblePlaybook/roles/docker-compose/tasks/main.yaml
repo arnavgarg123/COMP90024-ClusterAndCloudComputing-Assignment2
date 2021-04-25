@@ -36,7 +36,7 @@
   tags: 'couchdb and harvestor'
   become: yes
   docker_compose:
-    project_src: "{{ couch_dir }}"
+    project_src: "{{ project_dir }}"
     pull: yes
     state: present
     remove_orphans: yes
