@@ -1,0 +1,43 @@
+# Assignment 2 - COMP90024 Course at The University of Melbourne
+#
+# Cluster and Cloud Computing - Team 48
+#
+# Authors:
+#
+#  * Arnav Garg (Student ID: 1248298)
+#  * Piyush Bhandula (Student ID: 1163716)
+#  * Jay Dave (Student ID: 1175625)
+#  * Vishnu Priya G (Student ID: 1230719)
+#  * Gurkirat Singh Chohan 1226595
+#
+# Location: India, Melbourne, Singapore
+#
+
+#- name: Create couchdb directory
+#  tags: 'couchdb'
+#  become: yes
+#  file:
+#    path: "{{ couch_dir }}"
+#    owner: "{{ ansible_user }}"
+#    group: "{{ ansible_user }}"
+#    recurse: yes
+#    state: directory
+
+#- name: Create Compose in cloud
+#  tags: 'couchdb'
+#  become: yes
+#  template:
+#    src: ./docker-compose.yaml.j2
+#    dest: '{{ couch_dir }}/docker-compose.yaml'
+#    owner: '{{ ansible_user }}'
+#    group: "{{ ansible_user }}"
+
+- name: Run docker compose
+  tags: 'couchdb and harvestor'
+  become: yes
+  docker_compose:
+    project_src: "{{ couch_dir }}"
+    pull: yes
+    state: present
+    remove_orphans: yes
+    recreate: always

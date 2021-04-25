@@ -19,9 +19,13 @@ availability_zone: melbourne-qh2-uom
 #volume
 volumes:
   - vol_name: vol-11
-    vol_size: 100
+    vol_size: 160
   - vol_name: vol-22
-    vol_size: 100
+    vol_size: 160
+  - vol_name: vol-33
+    vol_size: 160
+  - vol_name: vol-44
+    vol_size: 10
 
 #security group
 security_groups:
@@ -45,12 +49,18 @@ security_groups:
     remote_ip_prefix: 0.0.0.0/0
 
 #instance
-instances:
-  - name: instance1
+harvest_instances:
+  - name: db-harvest-1
     volumes: ["vol-11"]
-  - name: instance2
+  - name: db-harvest-2
     volumes: ["vol-22"]
+  - name: db-harvest-3
+    volumes: ["vol-33"]
+web_instance:
+  - name: db-web-1
+    volumes: ["vol-44"]
 
 instance_image: f8b79936-6616-4a22-b55d-0d0a1d27bceb
 instance_key_name: Test
-instance_flavor: uom.mse.2c9g
+harvest_instance_flavor: uom.mse.2c9g
+web_instance_flavor: uom.mse.1c4g

@@ -12,19 +12,4 @@
 #
 # Location: India, Melbourne, Singapore
 #
-couch_instances:
-  - name: db-harvest-1
-    volumes: ["vol-11"]
-  - name: db-harvest-2
-    volumes: ["vol-22"]
-  - name: db-harvest-3
-    volumes: ["vol-33"]
-
-volumes:
-  - device: /dev/vdb
-    mountpoint: /var/lib/docker
-#  - device: /dev/vdb
-#    mountpoint: /opt/couchdb/data
-
-db_username: admin
-db_password: admin
+project_dir: COMP90024
