@@ -20,7 +20,7 @@ import tweepy
 from tweepy import OAuthHandler
 import os
 from sentiment_analyse import sentiment
-
+from dbconnector import Couch
 file = sys.argv[1]
 a = open(file, encoding="utf8")
 
@@ -32,7 +32,8 @@ if not 'model.h5' in os.listdir('./'):
     url = 'https://drive.google.com/u/0/uc?id=1jyRAKBLM7THKRJg7XSDIe1Jt2YpzWs4o&export=download'
     output = 'tokenizer.pickle'
     gdown.download(url, output, quiet=False)
-
+couch=Couch('http://172.26.133.84:5984/',['tweet'])
+couch.getdata('tweet_api')
 consumer_api_key = a.readline()[:-1].split(":")[1]
 consumer_api_secret = a.readline()[:-1].split(":")[1]
 access_token = a.readline()[:-1].split(":")[1]
@@ -55,9 +56,9 @@ while True:
     
 
     for tweet in tweepy.Cursor(api.search, q="place:%s" % geo, lang='en', result_type='recent').items(10):
-        all_tweets.append([tweet.user.id, tweet.text, tweet.created_at, tweet.place, senti.sentiment_analysis(tweet.text)[0][1]])
-
+        all_tweets.append({"uid":str(tweet.user.id), "text":str(tweet.text), "created_at":str(tweet.created_at), "place":str(tweet.place), "sentiment":str(senti.sentiment_analysis(tweet.text)[0][1])})
     for i in all_tweets:
-        print(i[-1],i[1])
+        couch.pushdata(i,'tweet')
+        print(i)
     del(all_tweets)
     print("--- %s seconds ---" % (time.time() - start_time))
