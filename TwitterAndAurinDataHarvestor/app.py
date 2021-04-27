@@ -42,18 +42,22 @@ authorizer = OAuthHandler(consumer_api_key, consumer_api_secret)
 authorizer.set_access_token(access_token, access_token_secret)
 api = tweepy.API(authorizer, timeout=15, wait_on_rate_limit=True)
 
-all_tweets = []
-search_query = ''
-geo = api.geo_search(query="Sydney", granularity="city")[0].id
-print(geo)
-start_time = time.time()
-
 senti=sentiment()
 
-for tweet in tweepy.Cursor(api.search, q="place:%s" % geo, lang='en', result_type='recent').items(10):
-    all_tweets.append([tweet.user.id, tweet.text, tweet.created_at, tweet.place, senti.sentiment_analysis(tweet.text)[0][1]])
+while True:
+    all_tweets = []
+    search_query = ''
+    #geo = api.geo_search(query="Sydney", granularity="city")[0].id
+    geo='0073b76548e5984f'
+    print(geo)
+    start_time = time.time()
 
-for i in all_tweets:
-    print(i[-1],i[1])
+    
 
-print("--- %s seconds ---" % (time.time() - start_time))
+    for tweet in tweepy.Cursor(api.search, q="place:%s" % geo, lang='en', result_type='recent').items(10):
+        all_tweets.append([tweet.user.id, tweet.text, tweet.created_at, tweet.place, senti.sentiment_analysis(tweet.text)[0][1]])
+
+    for i in all_tweets:
+        print(i[-1],i[1])
+    del(all_tweets)
+    print("--- %s seconds ---" % (time.time() - start_time))
