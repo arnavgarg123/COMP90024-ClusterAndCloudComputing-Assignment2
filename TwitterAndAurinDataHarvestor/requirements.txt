@@ -2,3 +2,5 @@ gdown
 tensorflow
 nltk
 tweepy
+json
+couchdb

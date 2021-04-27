@@ -51,4 +51,5 @@ class Couch:
         for i in self.db:
             if dbname==i._name:
                 for j in i:
-                    print(i.get(j))
+                    return i.get(j)
+                    break

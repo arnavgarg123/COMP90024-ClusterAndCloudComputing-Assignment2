@@ -13,7 +13,6 @@
 # Location: India, Melbourne, Singapore
 #
 import re
-import sys
 import time
 import gdown
 import tweepy
@@ -21,8 +20,6 @@ from tweepy import OAuthHandler
 import os
 from sentiment_analyse import sentiment
 from dbconnector import Couch
-file = sys.argv[1]
-a = open(file, encoding="utf8")
 
 if not 'model.h5' in os.listdir('./'):
     print('---------------downloading-----------------')
@@ -33,11 +30,11 @@ if not 'model.h5' in os.listdir('./'):
     output = 'tokenizer.pickle'
     gdown.download(url, output, quiet=False)
 couch=Couch('http://172.26.133.84:5984/',['tweet'])
-couch.getdata('tweet_api')
-consumer_api_key = a.readline()[:-1].split(":")[1]
-consumer_api_secret = a.readline()[:-1].split(":")[1]
-access_token = a.readline()[:-1].split(":")[1]
-access_token_secret = a.readline()[:-1].split(":")[1]
+api=couch.getdata('tweet_api')
+consumer_api_key = api['Api_Key']
+consumer_api_secret = api['Api_Secret_Key']
+access_token = api['Access_Token']
+access_token_secret = api['Access_Secret_Token']
 
 authorizer = OAuthHandler(consumer_api_key, consumer_api_secret)
 authorizer.set_access_token(access_token, access_token_secret)
