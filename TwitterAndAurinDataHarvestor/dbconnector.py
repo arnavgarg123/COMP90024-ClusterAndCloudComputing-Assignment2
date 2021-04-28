@@ -54,4 +54,3 @@ class Couch:
             if dbname==i._name:
                 for j in i:
                     return i.get(j)
-                    break

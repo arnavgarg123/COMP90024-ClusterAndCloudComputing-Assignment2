@@ -46,8 +46,8 @@ while True:
     all_tweets = []
     search_query = ''
     #geo = api.geo_search(query="Sydney", granularity="city")[0].id
-    geo='0073b76548e5984f'
-    print(geo)
+    loc=couch.getdata('region')
+    geo=loc['code']
     start_time = time.time()
 
     
