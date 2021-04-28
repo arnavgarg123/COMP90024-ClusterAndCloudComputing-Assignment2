@@ -9,8 +9,10 @@ class Couch:
         dbsl=['tweet_api','region']
         for dbname in dbsl:
             self.db=self.db+[self.createdb(couchserver,dbname)]
+            couchserver.replicate("http://admin:admin@172.26.133.84:5984/"+dbname,"http://admin:admin@172.26.133.111:5984/"+dbname,create_target=True,continuous=True)
         for dbname in dbnamelist:
             self.db=self.db+[self.createdb(couchserver,dbname)]
+            couchserver.replicate("http://admin:admin@172.26.133.84:5984/"+dbname,"http://admin:admin@172.26.133.111:5984/"+dbname,create_target=True,continuous=True)
         self.create_static()
         
     def createdb(self,couchserver,dbname):
