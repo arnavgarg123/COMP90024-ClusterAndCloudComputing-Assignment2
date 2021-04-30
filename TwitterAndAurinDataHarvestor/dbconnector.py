@@ -31,6 +31,7 @@ class Couch:
             for child in db_children:
                 couchserver.replicate(couchdb_master_login_url+dbname,'http://admin:admin@'+child.rstrip()+':5984/'+dbname,create_target=True,continuous=True)
         for dbname in dbnamelist:
+            self.db=self.db+[self.createdb(couchserver,dbname)]
             for child in db_children:
                 couchserver.replicate(couchdb_master_login_url+dbname,'http://admin:admin@'+child.rstrip()+':5984/'+dbname,create_target=True,continuous=True)
         self.create_static()
