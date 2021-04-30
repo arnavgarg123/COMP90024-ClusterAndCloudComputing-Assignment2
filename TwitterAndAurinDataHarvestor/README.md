@@ -19,4 +19,4 @@ Example -<br />
   Access_Secret_Token: cfghbhjnbhjkadcefc
   ```
 ## Execution
-- Run ```docker-compose up``` form inside this directory.
+- Run ```docker-compose up``` from inside this directory.

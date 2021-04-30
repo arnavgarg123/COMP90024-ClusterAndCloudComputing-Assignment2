@@ -1,3 +1,17 @@
+# Assignment 2 - COMP90024 Course at The University of Melbourne
+#
+# Cluster and Cloud Computing - Team 48
+#
+# Authors:
+#
+#  * Arnav Garg (Student ID: 1248298)
+#  * Piyush Bhandula (Student ID: 1163716)
+#  * Jay Dave (Student ID: 1175625)
+#  * Vishnu Priya G (Student ID: 1230719)
+#  * Gurkirat Singh Chohan (Student ID: 1226595)
+#
+# Location: India, Melbourne, Singapore
+#
 import couchdb
 import json
 class Couch:
@@ -7,14 +21,20 @@ class Couch:
         #self.createstaticdb()
         self.db=[]
         dbsl=['tweet_api','region']
+        f=open("ip_addresses.txt", "r")
+        couchdb_master_ip=f.readline().rstrip()
+        couchdb_master_login_url='http://admin:admin@'+couchdb_master_ip+':5984/'
+        db_children=f.readlines()
+        f.close()
         for dbname in dbsl:
             self.db=self.db+[self.createdb(couchserver,dbname)]
-            couchserver.replicate("http://admin:admin@172.26.133.84:5984/"+dbname,"http://admin:admin@172.26.133.111:5984/"+dbname,create_target=True,continuous=True)
+            for child in db_children:
+                couchserver.replicate(couchdb_master_login_url+dbname,'http://admin:admin@'+child.rstrip()+':5984/'+dbname,create_target=True,continuous=True)
         for dbname in dbnamelist:
-            self.db=self.db+[self.createdb(couchserver,dbname)]
-            couchserver.replicate("http://admin:admin@172.26.133.84:5984/"+dbname,"http://admin:admin@172.26.133.111:5984/"+dbname,create_target=True,continuous=True)
+            for child in db_children:
+                couchserver.replicate(couchdb_master_login_url+dbname,'http://admin:admin@'+child.rstrip()+':5984/'+dbname,create_target=True,continuous=True)
         self.create_static()
-        
+
     def createdb(self,couchserver,dbname):
         if dbname in couchserver:
             return couchserver[dbname]
@@ -48,7 +68,7 @@ class Couch:
                 flag=1
         if flag==1:
             print(dbname+" does not exist")
-    
+
     def getdata(self,dbname):
         for i in self.db:
             if dbname==i._name:
