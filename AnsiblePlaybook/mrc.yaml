@@ -37,3 +37,5 @@
     - role: git-clone
     - role: docker-compose
     
+- hosts: web
+  gather_facts: true
