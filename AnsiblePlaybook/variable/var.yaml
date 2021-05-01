@@ -19,11 +19,11 @@ availability_zone: melbourne-qh2-uom
 #volume
 volumes:
   - vol_name: vol-11
-    vol_size: 160
+    vol_size: 100
   - vol_name: vol-22
-    vol_size: 160
+    vol_size: 100
   - vol_name: vol-33
-    vol_size: 160
+    vol_size: 100
   - vol_name: vol-44
     vol_size: 10
 
