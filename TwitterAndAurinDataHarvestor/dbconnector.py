@@ -21,10 +21,9 @@ class Couch:
     def __init__(self,ip,dbnamelist):
         couchserver=couchdb.Server(url=ip)
         couchserver.resource.credentials=('admin','admin')
-        #self.createstaticdb()
         self.db=[]
         dbsl=['tweet_api','region']
-        f=open("ip_addresses.txt", "r")
+        f=open("ip.txt", "r")
         couchdb_master_ip=f.readline().rstrip()
         couchdb_master_login_url='http://admin:admin@'+couchdb_master_ip+':5984/'
         db_children=f.readlines()
@@ -77,7 +76,7 @@ class Couch:
         while True:
             for i in self.db:
                 if dbname==i._name:
-                        r=str(random.randint(1,5))
+                        r=str(random.randint(1,20))
                         harvest_obj=i.get(r)
                         if harvest_obj['flag']==0:
                             try:
@@ -86,9 +85,27 @@ class Couch:
                                 count+=1
                                 harvest_obj['count']=count
                                 i.save(harvest_obj)
-                                print("id: ",5,i._name)
+                                print("id: ",r,i._name)
                                 return harvest_obj
                             except:
-                                print("id: ",5," wait: 15 sec sleep")
+                                print("id: ",r," wait: 15 sec sleep")
                                 time.sleep(15)
                                 pass
+
+    def resetflag(self,column,value,dbname):
+        for i in self.db:
+            if dbname==i._name:
+                for j in i:
+                    target=i.get(j)
+                    if target[column]==value:
+                        target['flag']=0
+                        i.save(target)
+
+    def updatesinceid(self,column,value,since_id):
+        for i in self.db:
+            if 'region'==i._name:
+                for j in i:
+                    target=i.get(j)
+                    if target[column]==value:
+                        target['since_id']=since_id
+                        i.save(target)
