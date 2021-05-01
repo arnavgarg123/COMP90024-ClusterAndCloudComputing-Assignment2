@@ -54,11 +54,11 @@ while True:
     start_time = time.time()
 
     if curr_since_id=="0":
-        for tweet in tweepy.Cursor(api.search, q="place:%s" % geo, lang='en', result_type='recent', tweet_mode='extended').items(1000000):
-            all_tweets.append({"id":str(tweet.id), "uid":str(tweet.user.id), "text":str(tweet.full_text), "created_at":str(tweet.created_at), "city":str(tweet.place.name), "country":str(tweet.place.country), "box":str(tweet.place.bounding_box.coordinates), "sentiment":str(senti.sentiment_analysis(tweet.text)[0][1])})
+        for tweet in tweepy.Cursor(api.search, q="place:%s" % geo, lang='en', result_type='recent', tweet_mode='extended').items(10000000):
+            all_tweets.append({"id":str(tweet.id), "uid":str(tweet.user.id), "text":str(tweet.full_text), "created_at":str(tweet.created_at), "city":str(tweet.place.name), "country":str(tweet.place.country), "box":str(tweet.place.bounding_box.coordinates), "sentiment":str(senti.sentiment_analysis(tweet.full_text)[0][1])})
     else:
-        for tweet in tweepy.Cursor(api.search, q="place:%s" % geo +" since_id:%s" % curr_since_id, lang='en', result_type='recent', tweet_mode='extended').items(1000000):
-            all_tweets.append({"id":str(tweet.id), "uid":str(tweet.user.id), "text":str(tweet.full_text), "created_at":str(tweet.created_at), "city":str(tweet.place.name), "country":str(tweet.place.country), "box":str(tweet.place.bounding_box.coordinates), "sentiment":str(senti.sentiment_analysis(tweet.text)[0][1])})
+        for tweet in tweepy.Cursor(api.search, q="place:%s" % geo +" since_id:%s" % curr_since_id, lang='en', result_type='recent', tweet_mode='extended').items(10000000):
+            all_tweets.append({"id":str(tweet.id), "uid":str(tweet.user.id), "text":str(tweet.full_text), "created_at":str(tweet.created_at), "city":str(tweet.place.name), "country":str(tweet.place.country), "box":str(tweet.place.bounding_box.coordinates), "sentiment":str(senti.sentiment_analysis(tweet.full_text)[0][1])})
 
     for i in all_tweets:
         couch.pushdata(i,'tweet')
