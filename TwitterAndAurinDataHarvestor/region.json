@@ -1,5 +1,5 @@
-{"_id":"1","area":"Melbourne","code":"01864a8a64df9dc4","flag":"0"}
-{"_id":"2","area":"Sydney","code":"0073b76548e5984f","flag":"0"}
-{"_id":"3","area":"Adelaide","code":"01e8a1a140ccdc5c","flag":"0"}
-{"_id":"4","area":"Perth","code":"0118c71c0ed41109","flag":"0"}
-{"_id":"3","area":"Brisbane","code":"004ec16c62325149","flag":"0"}
+{"_id":"1","area":"Melbourne","code":"01864a8a64df9dc4","flag":0,"count":0,"since_id":"0"}
+{"_id":"2","area":"Sydney","code":"0073b76548e5984f","flag":0,"count":0,"since_id":"0"}
+{"_id":"3","area":"Adelaide","code":"01e8a1a140ccdc5c","flag":0,"count":0,"since_id":"0"}
+{"_id":"4","area":"Perth","code":"0118c71c0ed41109","flag":0,"count":0,"since_id":"0"}
+{"_id":"5","area":"Brisbane","code":"004ec16c62325149","flag":0,"count":0,"since_id":"0"}

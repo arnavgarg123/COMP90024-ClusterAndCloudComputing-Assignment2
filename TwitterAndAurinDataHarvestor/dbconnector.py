@@ -14,6 +14,9 @@
 #
 import couchdb
 import json
+import time
+import random
+
 class Couch:
     def __init__(self,ip,dbnamelist):
         couchserver=couchdb.Server(url=ip)
@@ -71,7 +74,21 @@ class Couch:
             print(dbname+" does not exist")
 
     def getdata(self,dbname):
-        for i in self.db:
-            if dbname==i._name:
-                for j in i:
-                    return i.get(j)
+        while True:
+            for i in self.db:
+                if dbname==i._name:
+                        r=str(random.randint(1,5))
+                        harvest_obj=i.get(r)
+                        if harvest_obj['flag']==0:
+                            try:
+                                harvest_obj['flag']=1
+                                count=harvest_obj['count']
+                                count+=1
+                                harvest_obj['count']=count
+                                i.save(harvest_obj)
+                                print("id: ",5,i._name)
+                                return harvest_obj
+                            except:
+                                print("id: ",5," wait: 15 sec sleep")
+                                time.sleep(15)
+                                pass

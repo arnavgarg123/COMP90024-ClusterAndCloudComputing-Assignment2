@@ -53,10 +53,11 @@ while True:
     geo=loc['code']
     start_time = time.time()
 
-
+    #for tweet in tweepy.Cursor(api.search, q="place:%s" % geo +" since_id:%s" % '1388256536070262788', lang='en', result_type='recent').items(1000000):
+        #all_tweets.append({​"id":str(tweet.id), "uid":str(tweet.user.id), "text":str(tweet.text), "created_at":str(tweet.created_at), "city":str(tweet.place.name), "country":str(tweet.place.country), "box":str(tweet.place.bounding_box.coordinates)}​)
 
     for tweet in tweepy.Cursor(api.search, q="place:%s" % geo, lang='en', result_type='recent').items(10):
-        all_tweets.append({"uid":str(tweet.user.id), "text":str(tweet.text), "created_at":str(tweet.created_at), "place":str(tweet.place), "sentiment":str(senti.sentiment_analysis(tweet.text)[0][1])})
+        all_tweets.append({"id":str(tweet.id), "uid":str(tweet.user.id), "text":str(tweet.text), "created_at":str(tweet.created_at), "city":str(tweet.place.name), "country":str(tweet.place.country), "box":str(tweet.place.bounding_box.coordinates), "sentiment":str(senti.sentiment_analysis(tweet.text)[0][1])})
     for i in all_tweets:
         couch.pushdata(i,'tweet')
         print(i)
