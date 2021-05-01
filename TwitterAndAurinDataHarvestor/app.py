@@ -53,7 +53,7 @@ while True:
     curr_since_id=loc['since_id']
     start_time = time.time()
 
-    if curr_since_id==0:
+    if curr_since_id=="0":
         for tweet in tweepy.Cursor(api.search, q="place:%s" % geo, lang='en', result_type='recent').items(1000000):
             all_tweets.append({"id":str(tweet.id), "uid":str(tweet.user.id), "text":str(tweet.text), "created_at":str(tweet.created_at), "city":str(tweet.place.name), "country":str(tweet.place.country), "box":str(tweet.place.bounding_box.coordinates), "sentiment":str(senti.sentiment_analysis(tweet.text)[0][1])})
     else:
@@ -67,6 +67,5 @@ while True:
         couch.updatesinceid('code',geo,all_tweets[0]['id'])
     couch.resetflag('code',geo,'region')
     del(all_tweets)
-    time.sleep(45)
-
     print("--- %s seconds ---" % (time.time() - start_time))
+    time.sleep(45)

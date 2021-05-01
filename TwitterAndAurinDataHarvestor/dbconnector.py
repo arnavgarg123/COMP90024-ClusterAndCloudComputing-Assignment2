@@ -47,16 +47,16 @@ class Couch:
     def create_static(self):
         a=open('tweetapi.json')
         for i in a.readlines():
-            b=json.loads(i)
+            c=json.loads(i)
             try:
-                self.pushdata(b,'tweet_api')
+                self.pushdata(c,'tweet_api')
             except:
                 pass
         a=open('region.json')
         for i in a.readlines():
-            b=json.loads(i)
+            d=json.loads(i)
             try:
-                self.pushdata(b,'region')
+                self.pushdata(d,'region')
             except:
                 pass
 
