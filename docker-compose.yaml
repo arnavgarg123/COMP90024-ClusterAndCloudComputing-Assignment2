@@ -25,7 +25,7 @@ services:
             COUCHDB_PASSWORD: admin
             COUCHDB_SECRET: 0123456789abcdef0123456789abcdef
             COUCHDB_USER: admin
-            NODENAME: couchdb-0
+            NODENAME: couchdb
         networks:
             network:
                 aliases:
