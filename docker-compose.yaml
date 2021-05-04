@@ -13,29 +13,7 @@
 # Location: India, Melbourne, Singapore
 #
 version: "3.5"
-networks:
-    network:
 services:
-    server-0:
-        image: couchdb
-        ports:
-            - "5984:5984"
-            - "5986:5986"
-            - "9100-9200:9100-9200"
-            - "4369:4369"
-        environment:
-            COUCHDB_PASSWORD: admin
-            COUCHDB_SECRET: 0123456789abcdef0123456789abcdef
-            COUCHDB_USER: admin
-            NODENAME: couchdb
-        networks:
-            network:
-                aliases:
-                    - couchdb-0.local.com
-        volumes:
-            - volume-0:/opt/couchdb/data
-
     harvestor:
         build: ./TwitterAndAurinDataHarvestor
-volumes:
-    volume-0:
+
