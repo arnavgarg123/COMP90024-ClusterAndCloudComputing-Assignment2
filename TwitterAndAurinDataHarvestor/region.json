@@ -4,7 +4,6 @@
 {"_id":"4","area":"Perth","code":"0118c71c0ed41109","flag":0,"count":0,"since_id":"0"}
 {"_id":"5","area":"Brisbane","code":"004ec16c62325149","flag":0,"count":0,"since_id":"0"}
 {"_id":"6","area":"Gold Coast","code":"e44e7dc5a2e1c3f1","flag":0,"count":0,"since_id":"0"}
-{"_id":"7","area":"Newcastle","code":"94965b2c45386f87","flag":0,"count":0,"since_id":"0"}
 {"_id":"8","area":"Canberra","code":"01e4b0c84959d430","flag":0,"count":0,"since_id":"0"}
 {"_id":"9","area":"Sunshine Coast","code":"7e0b3752623e1d72","flag":0,"count":0,"since_id":"0"}
 {"_id":"10","area":"Wollongong","code":"0180d6313aa616b2","flag":0,"count":0,"since_id":"0"}
@@ -17,4 +16,4 @@
 {"_id":"17","area":"Ballarat","code":"0077e693247f71d8","flag":0,"count":0,"since_id":"0"}
 {"_id":"18","area":"Bendigo","code":"01630a680b707c8d","flag":0,"count":0,"since_id":"0"}
 {"_id":"19","area":"Albury","code":"016db9d24c2f92a0","flag":0,"count":0,"since_id":"0"}
-{"_id":"20","area":"Launceston","code":"0028a1a5169e1532","flag":0,"count":0,"since_id":"0"}
+{"_id":"7","area":"Launceston","code":"0028a1a5169e1532","flag":0,"count":0,"since_id":"0"}
