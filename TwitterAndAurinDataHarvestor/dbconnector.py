@@ -76,7 +76,7 @@ class Couch:
         while True:
             for i in self.db:
                 if dbname==i._name:
-                        r=str(random.randint(1,20))
+                        r=str(random.randint(1,19))
                         harvest_obj=i.get(r)
                         if harvest_obj['flag']==0:
                             try:
