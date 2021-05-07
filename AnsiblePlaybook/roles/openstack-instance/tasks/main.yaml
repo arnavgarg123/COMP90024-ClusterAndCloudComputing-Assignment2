@@ -98,3 +98,9 @@
     groups: web
   loop: '{{ web_instances.results }}'
   when: item.openstack is defined
+
+# Add master to in memorry storage
+- name: Add host
+  add_host:
+    name: "{{ groups.db_harvestor[0] }}"
+    groups: master

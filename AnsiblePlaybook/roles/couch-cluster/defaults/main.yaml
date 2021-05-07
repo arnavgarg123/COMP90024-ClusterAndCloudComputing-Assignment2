@@ -12,7 +12,6 @@
 #
 # Location: India, Melbourne, Singapore
 #
-project_dir: COMP90024
 user: admin
 pass: admin
-secret: 0123456789abcdef0123456789abcdef
+masternode: "{{ groups.db_harvestor[0] }}"

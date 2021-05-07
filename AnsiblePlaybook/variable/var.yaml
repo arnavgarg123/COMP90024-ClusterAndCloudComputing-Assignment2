@@ -8,7 +8,7 @@
 #  * Piyush Bhandula (Student ID: 1163716)
 #  * Jay Dave (Student ID: 1175625)
 #  * Vishnu Priya G (Student ID: 1230719)
-#  * Gurkirat Singh Chohan 1226595
+#  * Gurkirat Singh Chohan (Student ID: 1226595)
 #
 # Location: India, Melbourne, Singapore
 #
@@ -19,11 +19,11 @@ availability_zone: melbourne-qh2-uom
 #volume
 volumes:
   - vol_name: vol-11
-    vol_size: 100
+    vol_size: 40
   - vol_name: vol-22
-    vol_size: 100
+    vol_size: 40
   - vol_name: vol-33
-    vol_size: 100
+    vol_size: 40
   - vol_name: vol-44
     vol_size: 10
 
@@ -46,6 +46,18 @@ security_groups:
     protocol: tcp
     port_range_min: 80
     port_range_max: 80
+    remote_ip_prefix: 0.0.0.0/0
+  - name: intra_cluster_communication
+    description: "comm access"
+    protocol: tcp
+    port_range_min: 9100
+    port_range_max: 9200
+    remote_ip_prefix: 0.0.0.0/0
+  - name: intra_cluster_communication_1
+    description: "comm access 1"
+    protocol: tcp
+    port_range_min: 4369
+    port_range_max: 4369
     remote_ip_prefix: 0.0.0.0/0
 
 #instance
