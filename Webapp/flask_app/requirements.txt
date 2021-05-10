@@ -1,0 +1,5 @@
+Flask
+dominate
+flask_nav
+Flask_Bootstrap
+gunicorn

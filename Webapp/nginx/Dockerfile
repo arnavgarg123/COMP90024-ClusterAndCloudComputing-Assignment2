@@ -12,27 +12,6 @@
 #
 # Location: India, Melbourne, Singapore
 #
-version: '3'
-
-services:
-
-  app:
-    container_name: flask_app
-    restart: always
-    build: ./flask_app
-    networks:
-      - webappnet
-    ports:
-      - "5000:5000"
-
-  nginx:
-    container_name: nginx
-    restart: always
-    build: ./nginx
-    networks:
-      - webappnet
-    ports:
-      - "81:8080"
-
-networks:
-  webappnet:
+FROM nginx
+RUN rm /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/
