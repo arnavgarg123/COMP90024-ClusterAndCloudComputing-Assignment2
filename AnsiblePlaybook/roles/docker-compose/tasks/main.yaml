@@ -8,7 +8,7 @@
 #  * Piyush Bhandula (Student ID: 1163716)
 #  * Jay Dave (Student ID: 1175625)
 #  * Vishnu Priya G (Student ID: 1230719)
-#  * Gurkirat Singh Chohan 1226595
+#  * Gurkirat Singh Chohan (Student ID: 1226595)
 #
 # Location: India, Melbourne, Singapore
 #

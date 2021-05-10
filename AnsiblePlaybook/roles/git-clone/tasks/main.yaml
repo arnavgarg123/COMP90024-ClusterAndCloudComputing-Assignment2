@@ -8,7 +8,7 @@
 #  * Piyush Bhandula (Student ID: 1163716)
 #  * Jay Dave (Student ID: 1175625)
 #  * Vishnu Priya G (Student ID: 1230719)
-#  * Gurkirat Singh Chohan 1226595
+#  * Gurkirat Singh Chohan (Student ID: 1226595)
 #
 # Location: India, Melbourne, Singapore
 #
@@ -42,6 +42,25 @@
   become: yes
   lineinfile:
     path: '{{ ip_path }}'
+    #regexp: '.*{{ item }}$'
+    line: "{{ item }}"
+    state: present
+  #when: hostvars[item].ansible_host is defined
+  with_items: "{{ groups.db_harvestor }}"
+
+- name: Create ip file
+  tags: always
+  become: yes
+  file:
+    path: "{{ ip_path2 }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    state: touch
+
+- name: Add ip to instances
+  become: yes
+  lineinfile:
+    path: '{{ ip_path2 }}'
     #regexp: '.*{{ item }}$'
     line: "{{ item }}"
     state: present
