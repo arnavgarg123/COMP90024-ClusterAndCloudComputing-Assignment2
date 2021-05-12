@@ -31,9 +31,9 @@
   gather_facts: true
 
   roles:
-    - role: couch-common
+    - role: common
     - role: couch-volumes
-    - role: couch-docker
+    - role: docker
     - role: git-clone
     - role: docker-compose
     
@@ -48,3 +48,8 @@
 - hosts: web
   gather_facts: true
 
+  roles:
+    - role: common
+    - role: docker
+    - role: git-clone
+    - role: web-app-docker-compose

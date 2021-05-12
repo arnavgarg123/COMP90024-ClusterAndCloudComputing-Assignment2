@@ -73,7 +73,7 @@
     return_content: yes
     headers:
       Content-Type: "application/json"
-    status_code: 200, 201
+    status_code: 200, 201, 400
     body_format: json
     body: "{\"action\": \"finish_cluster\"}"    
   run_once: true
