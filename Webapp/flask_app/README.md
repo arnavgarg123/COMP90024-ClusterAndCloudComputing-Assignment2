@@ -10,4 +10,6 @@ Webapp for visualisation of data. Contains Maps, Graphs.
 ## Execution
 - Run ```gunicorn -w 3 -b :5000 -t 360 --reload wsgi:app``` for development from inside this directory.
 - Run ```gunicorn -w 3 -b :5000 -t 360 wsgi:app``` for deployment from inside this directory.
-- Run ```docker build -t webapp:1.0``` to run in container.
+- To run via docker
+  - Run ```docker build -t webapp:1.0``` to build docker image.
+  - Run ```docker run -p 5000:5000 webapp:1.0``` to run in container.
