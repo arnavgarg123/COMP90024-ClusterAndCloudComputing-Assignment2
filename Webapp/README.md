@@ -1,6 +1,6 @@
 # Webapp
 
-Webapp for visualisation of data. Contains Maps, Graphs. <br/>Gunicorn layer used as wsgi layer and for load balancing <br/>Nginx container used as webserver.
+Webapp for visualisation of data. Contains Maps, Graphs. <br/>Gunicorn layer used as wsgi layer and for load balancing <br/>Nginx container used as webserver and also as load balancer.
 
 ## Running on localhost
 - System uses an ip.txt file to read in the ip of master couch db instance.
