@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scenario 1</title>
+</head>
+<body>
+  <div><img src = {{ url_for('wordcloud_hashtags') }} alt = "Image placeholder" height = "500"/></div>
+  <div id="piechart" class="piechart"></div>
+</body>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+<script>
+  var piechart = {{pieJSON | safe}};
+  Plotly.plot('piechart',piechart,{});
+</script>
+</html>

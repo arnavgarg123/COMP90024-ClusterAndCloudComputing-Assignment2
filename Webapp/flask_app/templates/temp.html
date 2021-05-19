@@ -1,14 +1,14 @@
 {% extends "header.html" %}
-{% block title %}Temp{% endblock %}
+{% block title %}Home{% endblock %}
 {% block head %}
     {{ super() }}
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
+<script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
+
 <style>
-.navbar{
-            z-index:9999;
-        }
+.navbar{z-index:9999;}
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
 </style>
@@ -16,48 +16,65 @@ body { margin: 0; padding: 0; }
 {% block content %}
 <div id="map"></div>
 <script>
-	mapboxgl.accessToken = 'pk.eyJ1IjoiZ3Vya2kwOSIsImEiOiJja29iejNiZjkxaWg0MndtdTFiZzdkcXVnIn0.hTqur4keYNgXKLjldLaVEw';
+mapboxgl.accessToken = 'pk.eyJ1IjoiZ3Vya2kwOSIsImEiOiJja29iejNiZjkxaWg0MndtdTFiZzdkcXVnIn0.hTqur4keYNgXKLjldLaVEw';
 var map = new mapboxgl.Map({
-container: 'map', // container ID
-style: 'mapbox://styles/mapbox/light-v10', // style URL
-center: [134.946457, -28.840935], // starting position
-zoom: 4 // starting zoom
+container: 'map', 
+style: 'mapbox://styles/mapbox/streets-v11', 
+center: [134.946457, -26.840935], 
+zoom: 4 
 });
+var hoveredStateId = null;
  
 map.on('load', function () {
-// Add a data source containing GeoJSON data.
 map.addSource('test', {
-'type': 'geojson',
-'data': 
-{"type":"FeatureCollection", "features": [
-{"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[149.556190567601,-33.4670583650891],[149.555017476929,-33.4738468650349],[149.580856922447,-33.4803016473244],[149.582385183246,-33.4720876673995],[149.589220992171,-33.4728973779994],[149.590948573147,-33.4630225180802],[149.575376905636,-33.4608362367115],[149.577708615832,-33.4565622168841],[149.568129547354,-33.455290696043],[149.566906366715,-33.461874175983],[149.556878857104,-33.4634302895427],[149.556190567601,-33.4670583650891]]]},"properties":{"LC_PLY_PID":"34943","DT_CREATE":"2021-02-09T00:00:00.000Z","DT_RETIRE":"1899-11-30T00:00:00.000Z","LOC_PID":"NSW3128"}},
-{"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[151.129655754154,-33.6217065176966],[151.136465257403,-33.617521740451],[151.142601962631,-33.6193627088853],[151.14139736319,-33.6164465187526],[151.153372602155,-33.6114769398329],[151.14884653487,-33.5958839693014],[151.132401587792,-33.5914102977386],[151.133009699028,-33.581462027725],[151.126300059567,-33.5845506471224],[151.126651448991,-33.588514607183],[151.123687079779,-33.5857365568876],[151.118775450002,-33.5892945164557],[151.125272108155,-33.5962704671093],[151.120724957535,-33.6057827867533],[151.123976706596,-33.6093875370813],[151.124088465378,-33.6184345471555],[151.129655754154,-33.6217065176966]]]},"properties":{"LC_PLY_PID":"34946","DT_CREATE":"2021-02-09T00:00:00.000Z","DT_RETIRE":"1899-11-30T00:00:00.000Z","LOC_PID":"NSW311"}}
-]}
-});
+				"type": "geojson",
+				"data": "../static/data/tweets_by_location.json"
+			});
  
-// Add a new layer to visualize the polygon.
 map.addLayer({
-'id': 'test',
-'type': 'fill',
-'source': 'test', // reference the data source
+'id': 'aus_states',
+'type': 'circle',
+'source': 'test', 
 'layout': {},
 'paint': {
-'fill-color': '#0080ff', // blue color fill
-'fill-opacity': 0.5
+'circle-radius': 6,
+'circle-color': '#B42222'
 }
 });
-// Add a black outline around the polygon.
-map.addLayer({
-'id': 'outline',
-'type': 'line',
-'source': 'test',
-'layout': {},
-'paint': {
-'line-color': '#000',
-'line-width': 3
-}
+
 });
+
+map.on('mousemove', 'aus_states', function (e) {
+    if (e.features.length > 0) {
+        if (hoveredStateId !== null) {
+            map.setFeatureState(
+                { source: 'test', id: hoveredStateId },
+                { hover: false }
+            );
+        }
+        hoveredStateId = e.features[0].id;
+        map.setFeatureState(
+            { source: 'test', id: hoveredStateId },
+            { hover: true }
+        );
+    }
 });
+
+ map.on('mouseenter', 'aus_states', function () {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+map.on('mouseleave', 'aus_states', function () {
+    if (hoveredStateId !== null) {
+        map.setFeatureState(
+            { source: 'test', id: hoveredStateId },
+            { hover: false }
+        );
+    }
+    hoveredStateId = null;
+	map.getCanvas().style.cursor = '';
+});
+
 </script>
  
 {% endblock %}

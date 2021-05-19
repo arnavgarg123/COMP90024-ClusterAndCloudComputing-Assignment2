@@ -5,29 +5,108 @@
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
+<script src='https://unpkg.com/@turf/turf@6.3.0/turf.min.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript">
+</script>
+<script>
+function show_element(id) {
+       var e = document.getElementById(id);
+          e.style.display = 'block';
+    }
+function hide_element(id) {
+       var e = document.getElementById(id);
+          e.style.display = 'none';
+    }
+</script>
 <style>
 .navbar{z-index:9999;}
-body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+
+#map { position: absolute; top: 0; bottom: 0; width: 75%; }
+#sidebar {
+display: block;
+position: relative;
+left: 37.5%;
+margin: 0px auto;
+width: 25%;
+height: 94%;
+padding: 30px;
+border: none;
+border-radius: 3px;
+font-size: 12px;
+text-align: right;
+color: #3182bd;
+background: #fff;
+}
+#resetmap{
+display: none;
+position: relative;
+left: -45%;
+margin: 0px auto;
+width: 5%;
+height: 40px;
+padding: 10px;
+border: none;
+border-radius: 3px;
+font-size: 12px;
+text-align: center;
+color: #fff;
+background: #3182bd;
+}
+h1 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 32px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 36.4px; }
+h4 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 20.4px; }
+
 </style>
 {% endblock %}
 {% block content %}
+
+
 <div id="map"></div>
+</div>
+<div id="sidebar">
+</div>
+
+<script type="text/javascript">
+ $.get('../static/data/normal.csv', function(data) {
+	var build = '<h1>At a Glance\n\n<\h1>';
+	var rows = data.split("\n");
+	rows.forEach( function getvalues(thisRow) {
+	build += "\n";
+	var columns = thisRow.split(",");
+	for(var i=0;i<columns.length;i++){ build += "<h1>" + columns[i] + "</h1>\n"; }
+	build += "\n";
+	})
+	$('#sidebar').append(build);	
+ });</script>
+
+
+
+</div>
+<button id="resetmap">Reset</button>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ3Vya2kwOSIsImEiOiJja29iejNiZjkxaWg0MndtdTFiZzdkcXVnIn0.hTqur4keYNgXKLjldLaVEw';
 var map = new mapboxgl.Map({
 container: 'map', 
 style: 'mapbox://styles/mapbox/streets-v11', 
 center: [134.946457, -26.840935], 
+minZoom: 3,
 zoom: 4 
 });
 var hoveredStateId = null;
- 
+var zoomThreshold = 4.4;
+
 map.on('load', function () {
+map.resize();
 map.addSource('test', {
 				"type": "geojson",
 				"data": "../static/data/aus_states_boundary.json"
 			});
+ 
+function getColor(d) {
+    return d > 20 ? '#3182bd' :
+           d > 5  ? '#9ecae1' :
+                    '#deebf7';
+}
+
  
 map.addLayer({
 'id': 'aus_states',
@@ -35,11 +114,11 @@ map.addLayer({
 'source': 'test', 
 'layout': {},
 'paint': {
-'fill-color': '#0080ff', 
+'fill-color': '#3182bd', 
 'fill-opacity': [
                     'case',
                     ['boolean', ['feature-state', 'hover'], false],
-                    0.7,
+                    0.5,
                     0.3
                 ]
 }
@@ -54,6 +133,25 @@ map.addLayer({
 'line-width': 2
 }
 });
+
+map.addSource('pt', {
+				"type": "geojson",
+				"data": "../static/data/tweets_by_location.json"
+			});
+ 
+map.addLayer({
+'id': 'aus_cities',
+'type': 'circle',
+'minzoom': zoomThreshold,
+'source': 'pt', 
+'layout': {},
+'paint': {
+'circle-radius': 6,
+'circle-color': '#B42222'
+}
+});
+
+
 });
 
 map.on('mousemove', 'aus_states', function (e) {
@@ -88,9 +186,35 @@ map.on('mouseleave', 'aus_states', function () {
 });
 
 map.on('click', 'aus_states', function (e) {
+show_element('resetmap');
 var state_code = e.features[0].properties.STATE_CODE;
-window.location="sc1?state_code="+state_code;
+var center_lat = e.features[0].properties.CENTER_LAT;
+var center_long = e.features[0].properties.CENTER_LONG;
+
+var zoom_pt = e.features[0].properties.ZOOM_PT;
+//map.flyTo({center: center_pt, zoom: zoom_pt});
+map.flyTo({center: [center_lat,center_long], zoom: zoom_pt});
+//window.location="sc1?state_code="+zoom_pt;
 });
+
+document.getElementById('resetmap').addEventListener('click', function () {
+map.flyTo({
+center: [134.946457, -26.840935], 
+zoom: 4
+});
+hide_element('resetmap');
+});
+
+map.on('zoom', function () {
+        if (map.getZoom() > zoomThreshold) {
+zoomThreshold=4.4;
+        } else {
+zoomThreshold=4.4;
+//            stateLegendEl.style.display = 'block';
+//            countyLegendEl.style.display = 'none';
+        }
+    });
+
 </script>
  
 {% endblock %}
