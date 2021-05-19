@@ -4,7 +4,7 @@ Webapp for visualisation of data. Contains Maps, Graphs.
 
 ## Setup
 - Make sure you have python-3 installed on your system
-- Install Docker-engine and Docker-compose on your system.<br/> For Ubuntu run command <br/>```apt install docker.io```<br/>```apt install docker-compose```
+- Install Docker-engine on your system.<br/> For Ubuntu run command <br/>```apt install docker.io```
 - You will need internet access to pull a base image from docher hub
 
 ## Execution
