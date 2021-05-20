@@ -73,6 +73,10 @@ def wordcloud_hashtags():
     plt.close()
     return send_file(img, mimetype='image/png')
 
+@app.route('/sc3')
+def scenario3():
+    return render_template('scenario3.html')
+
 @app.route('/sc1')
 def population_tweets():
     top_df=city_tweets()

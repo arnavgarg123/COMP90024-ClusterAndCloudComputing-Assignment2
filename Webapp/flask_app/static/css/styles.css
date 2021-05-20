@@ -1,6 +1,6 @@
 html, body, .container-fluid {
     height: 100%;
-    overflow-y:hidden;
+   /* overflow-y:hidden;*/
 }
 
 #map { 

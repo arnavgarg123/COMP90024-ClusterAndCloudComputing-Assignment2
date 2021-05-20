@@ -1,48 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Word cloud</title>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script> -->
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-    <style>
-   /*    .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-  #main { 
-    width: 800px;
-    margin: 0 auto;
-}
-#piechart    {
-    width: 200px;
-    height: 400px;
-    float: left;
-}
-
-#wordcloud {
-    width: 600px;
-    background: black;
-    height: 400px;
-    margin-left: 200px;
-}
-} */
-    </style>
-</head>
-<body>
-    <div id="combo_chart1" class="combo_chart"></div>
-    
-    <div id="piechart" class="piechart" style="display: inline-block; width: 50%;"></div>
-    <div id="wordcloud" style="display: inline-block; float: right; width: 50%;"><img style="width: 100%; height: 450px;" src = {{ url_for('wordcloud_hashtags') }} alt = "Image placeholder" height = "450"/></div>   
-    
-</body>
-<script>
-  var combochart = {{subJSON | safe}};
-  Plotly.plot('combo_chart1',combochart,{});
-
-  var piechart = {{pieJSON | safe}};
-  Plotly.plot('piechart',piechart,{});
-</script>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Scenario 1</title>
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script> -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="../static/css/styles.css">
+      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+   </head>
+   <body>
+      <nav class="navbar navbar-expand-lg navbar-light">
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navi">
+         <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navi">
+            <ul class="navbar-nav nav-fill">
+               <li class="nav-item">
+                  <a class="nav-link" href="/">Home</a>
+               </li>
+               <li class="nav-item active">
+                  <a class="nav-link" href="/sc1">Scenario 1</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="/sc2">Scenario 2</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="/sc3">Scenario 3</a>
+               </li>
+            </ul>
+         </div>
+      </nav>
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-md-12">
+               <div id="combo_chart1" class="combo_chart"></div>
+            </div>               
+         </div>
+         <div class="row">
+            <div class="col-md-6">
+              <div id="piechart" class="piechart"></div>
+            </div>
+            <div class="col-md-6">
+               <img src = {{ url_for('wordcloud_hashtags') }} alt = "Image placeholder" height = "450"/>
+            </div>
+         </div>
+      </div>
+   </body>
+   <script>
+      var combochart = {{subJSON | safe}};
+      Plotly.plot('combo_chart1',combochart,{});
+      
+      var piechart = {{pieJSON | safe}};
+      Plotly.plot('piechart',piechart,{});
+   </script>
 </html>
