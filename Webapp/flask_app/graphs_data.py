@@ -6,7 +6,7 @@ from wordcloud import WordCloud, STOPWORDS
 
 df = pd.read_excel('./static/data_files/tweets_couchdb.xlsx',sheet_name='Sheet1')
 income_df = pd.read_excel(r'./static/data_files/income.xlsx')
-df_city=pd.read_csv(r"./static/data_files/data8546547301497786726.csv")
+df_city=pd.read_csv(r"./static/data_files/aurin_city_stats.csv")
 
 
 
