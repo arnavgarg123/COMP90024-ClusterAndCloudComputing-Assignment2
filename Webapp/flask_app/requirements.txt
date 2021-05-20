@@ -1,5 +1,13 @@
+wordcloud
+XlsxWriter
+CouchDB
+textblob
+matplotlib
+plotly
+pandas
 Flask
 dominate
 flask_nav
 Flask_Bootstrap
 gunicorn
+openpyxl
