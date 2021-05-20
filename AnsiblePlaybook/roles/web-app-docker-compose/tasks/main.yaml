@@ -12,6 +12,22 @@
 #
 # Location: India, Melbourne, Singapore
 #
+
+# Stop webapp container
+- name: Stop webapp Docker container
+  become: yes
+  docker_container:
+    name: flask_app
+    state: absent
+
+# Stop nginx container
+- name: Stop webapp Docker container
+  become: yes
+  docker_container:
+    name: nginx
+    state: absent
+
+# Start nginx and webapp
 - name: Run docker compose
   tags: 'webapp'
   become: yes

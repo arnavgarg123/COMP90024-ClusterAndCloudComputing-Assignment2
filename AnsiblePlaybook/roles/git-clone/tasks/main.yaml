@@ -12,6 +12,8 @@
 #
 # Location: India, Melbourne, Singapore
 #
+
+# Create directory to clone project
 - name: Create git directory
   tags: 'git-repo dir'
   become: yes
@@ -22,6 +24,7 @@
     recurse: yes
     state: directory
 
+# Cloning project
 - name: clone a repository
   become: yes
   git:
@@ -29,6 +32,7 @@
     dest: "{{ git_dir }}"
     update: yes
 
+# Creating ip file
 - name: Create ip file
   tags: always
   become: yes
@@ -38,16 +42,16 @@
     group: "{{ ansible_user }}"
     state: touch
 
+# Adding ip of other servers to each instance
 - name: Add ip to instances
   become: yes
   lineinfile:
     path: '{{ ip_path }}'
-    #regexp: '.*{{ item }}$'
     line: "{{ item }}"
     state: present
-  #when: hostvars[item].ansible_host is defined
   with_items: "{{ groups.db_harvestor }}"
 
+# Creating ip file for 2nd docker container
 - name: Create ip file
   tags: always
   become: yes
@@ -57,12 +61,11 @@
     group: "{{ ansible_user }}"
     state: touch
 
+# Adding ip of other servers to each instance for 2nd container
 - name: Add ip to instances
   become: yes
   lineinfile:
     path: '{{ ip_path2 }}'
-    #regexp: '.*{{ item }}$'
     line: "{{ item }}"
     state: present
-  #when: hostvars[item].ansible_host is defined
   with_items: "{{ groups.db_harvestor }}"

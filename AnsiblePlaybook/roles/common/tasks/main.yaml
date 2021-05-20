@@ -12,6 +12,8 @@
 #
 # Location: India, Melbourne, Singapore
 #
+
+# Adding proxy to instance
 - name: Add Proxy to instances
   become: yes
   lineinfile:

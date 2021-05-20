@@ -12,6 +12,8 @@
 #
 # Location: India, Melbourne, Singapore
 #
+
+# Installing dependencies
 - name: Install Dependencies
   tags: always
   become: yes
@@ -21,6 +23,7 @@
     install_recommends: yes
     update_cache: yes
 
+# Making file system for attached storages
 - name: Make file system
   tags: 'volumes'
   become: yes
@@ -31,6 +34,7 @@
   with_items:
     - "{{ volumes }}"
 
+# Checking status of Mountpoint
 - name: Checking folders
   tags: 'volumes'
   become: yes
@@ -40,6 +44,7 @@
   with_items:
     - "{{ volumes }}"
 
+# Creating mountpoint directory if it does not exist
 - name: Create directory
   tags: 'volumes'
   become: yes
@@ -51,6 +56,7 @@
   with_items:
     - "{{ directory_stats.results }}"
 
+# Mounting storage
 - name: Mount device
   tags: 'volumes'
   become: yes

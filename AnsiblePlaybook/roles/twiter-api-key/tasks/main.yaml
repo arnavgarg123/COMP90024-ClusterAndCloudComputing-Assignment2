@@ -13,11 +13,12 @@
 # Location: India, Melbourne, Singapore
 #
 
+# Pushing twitter api keys to cloud
 - name: Create twiter api key file in cloud
   tags: 'twiter_api_key_file'
   become: yes
   template:
     src: ./tweetapi.json.j2
-    dest: '{{ api_dir }}'
+    dest: '{{ api_path }}'
     owner: '{{ ansible_user }}'
     group: "{{ ansible_user }}"

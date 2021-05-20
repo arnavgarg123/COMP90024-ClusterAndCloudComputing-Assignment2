@@ -12,4 +12,4 @@
 #
 # Location: India, Melbourne, Singapore
 #
-api_dir: ./COMP90024/TwitterAndAurinDataHarvestor/tweetapi.json
+api_path: ./COMP90024/TwitterAndAurinDataHarvestor/tweetapi.json

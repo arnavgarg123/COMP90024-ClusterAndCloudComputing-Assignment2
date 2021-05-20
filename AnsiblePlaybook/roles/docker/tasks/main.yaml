@@ -12,6 +12,8 @@
 #
 # Location: India, Melbourne, Singapore
 #
+
+# Installing dependencies
 - name: Install Dependencies
   tags: always
   become: yes
@@ -21,6 +23,7 @@
     install_recommends: yes
     update_cache: yes
 
+# Creating proxy file
 - name: Create Docker Proxy directory
   tags: always
   become: yes
@@ -31,6 +34,7 @@
     recurse: yes
     state: directory
 
+# Copying proxy to proxy file on cloud
 - name: Create docker proxy file in cloud
   tags: 'docker_proxy_file'
   become: yes
@@ -40,6 +44,7 @@
     owner: '{{ ansible_user }}'
     group: "{{ ansible_user }}"
 
+# Restarting Daemon and docker service to refresh proxy settings
 - name: Daemon and service Reload
   become: yes
   systemd:
