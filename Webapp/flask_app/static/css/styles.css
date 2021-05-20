@@ -1,0 +1,22 @@
+html, body, .container-fluid {
+    height: 100%;
+    overflow-y:hidden;
+}
+
+#map { 
+    position: absolute; top: 0; bottom: 0; width: 100%;
+}
+
+#sidebar {
+    text-align: center;
+}
+
+#resetmap {
+display: none;
+position: relative;
+top:-87%;
+left:2%;
+text-align: center;
+color: #fff;
+background: #3182bd;
+}
