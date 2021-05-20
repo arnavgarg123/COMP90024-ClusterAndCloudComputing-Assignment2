@@ -44,7 +44,7 @@ map.on('load', function () {
 
     map.addSource('pt', {
         "type": "geojson",
-        "data": "../static/data_files/tweets_by_location.json"
+        "data": "../static/data_files/map1.geojson"
     });
 
     map.addLayer({
@@ -54,8 +54,9 @@ map.on('load', function () {
         'source': 'pt',
         'layout': {},
         'paint': {
-            'circle-radius': 6,
-            'circle-color': '#B42222'
+            'circle-radius': ['get','radius'],
+            'circle-color': '#B42222',
+            'circle-opacity': 0.3
         }
     });
 
