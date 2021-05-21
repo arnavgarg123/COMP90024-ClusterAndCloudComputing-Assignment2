@@ -128,25 +128,18 @@ def scenario3():
     fig.update_yaxes(title_text="<b>Unemployment Rate</b>", secondary_y=True, autorange=True)
     subJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-    fig = make_subplots(specs=[[{"secondary_y": True}]])
-    fig.add_trace(
-        go.Scatter(
-            x=edu_df['Level of education'],
-            y=edu_df['Employed'],
-            name="Employment Percentage"
-        ) ,secondary_y=False)
+    fig = go.Figure()
     fig.add_trace(
         go.Scatter(
             x=edu_df['Level of education'],
             y=edu_df['Unemployed'],
-            name="Unemployment Percentage"
-        ) , secondary_y=True)
+            name="<b>Unemployment Percentage<b>"
+        ))
 
     fig.update_traces(texttemplate='%{text:.2s}')
     fig.update_layout(legend_title_text='Legend',
-                      title_text='Level of Education Vs Employment/Unemployment', template='plotly_dark')
-    fig.update_yaxes(title_text="<b>Employment Percent</b>", secondary_y=False, autorange=True)
-    fig.update_yaxes(title_text="<b>Unemployment Percent</b>", secondary_y=True, autorange=True)
+                      title_text='Level of Education Vs Unemployment', template='plotly_dark')
+    fig.update_yaxes(title_text="<b>Unemployment Percent</b>", autorange=True)
     hubJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('scenario3.html', subJSON=subJSON, hubJSON=hubJSON, comboJSON = comboJSON)

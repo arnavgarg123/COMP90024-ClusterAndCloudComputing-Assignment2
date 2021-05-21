@@ -33,10 +33,10 @@
             </ul>
          </div>
       </nav>
-      <div class="container-fluid">
+      <div style=" background: rgb(17, 17, 17);" class="container-fluid">
          <div class="row">
             <div class="col-md-6">
-               <div id="combo_chart1" class="combo_chart"></div>
+               <div style="height:500px; width:950px;" id="combo_chart1" class="combo_chart"></div>
             </div>
             <div class="col-md-6">
                <img src = {{ url_for('wordcloud_work_education') }} alt = "Image placeholder" height = "450"/>
@@ -47,7 +47,7 @@
             <div style="height:500px; width:950px;" id="combo_chart" class="combo_chart"></div>
          </div>
          <div class="col-md-6">
-            <div style="height:500px; width:950px;" id="combo_chart2" class="combo_chart2"></div>
+            <div style="height:540px; width:900px;" id="combo_chart2" class="combo_chart2"></div>
          </div>
       </div>
          </div>
@@ -55,6 +55,7 @@
    <script>
       var combo_chart = {{comboJSON | safe}};
       Plotly.plot('combo_chart1',combo_chart,{});
+      
       var combochart = {{subJSON | safe}};
       Plotly.plot('combo_chart',combochart,{});
 
