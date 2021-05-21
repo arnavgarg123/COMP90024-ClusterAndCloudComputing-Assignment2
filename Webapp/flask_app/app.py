@@ -5,7 +5,8 @@ from io import BytesIO
 import plotly.express as px
 import json
 import plotly.graph_objects as go
-from graphs_data import generate_word_cloud, generate_scores, city_comparison, city_tweets, income_sentiment, generate_pie_chart, generate_word_cloud_hashtags
+from graphs_data import generate_word_cloud, generate_scores, city_comparison, city_tweets, income_sentiment, \
+    generate_pie_chart, generate_word_cloud_hashtags, unemployment_polarity, generate_wordcloud_work_education
 from plotly.subplots import make_subplots
 
 
@@ -75,7 +76,47 @@ def wordcloud_hashtags():
 
 @app.route('/sc3')
 def scenario3():
-    return render_template('scenario3.html')
+    final_work_tweets_df, final_aurin_unemployment_df = unemployment_polarity()
+
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+    fig.add_trace(
+        go.Bar(x=final_work_tweets_df['City'],
+               y=final_work_tweets_df['polarity'],
+               name="Polarity Score", marker=dict(color="#bf00ff")),
+        secondary_y=False,
+    )
+
+    fig.add_trace(
+        go.Scatter(x=final_aurin_unemployment_df[' sa4 name'],
+                   y=final_aurin_unemployment_df['Unemployment Rate'],
+                   name="Unemployment Rate", marker=dict(color="white")),
+        secondary_y=True,
+    )
+
+    fig.update_traces(texttemplate='%{text:.2s}')
+    fig.update_layout(title_text='Polarity vs Unemployment Rate', legend_title_text='Legend', template='plotly_dark',
+                      title_x=0.5)
+
+    fig.update_yaxes(title_text="<b>Unemployment Rate</b>", secondary_y=True)
+    fig.update_yaxes(title_text="<b>Polarity</b>", secondary_y=False)
+
+    comboJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+
+    return render_template('scenario3.html', comboJSON = comboJSON)
+
+@app.route('/wordcloud_work_education')
+def wordcloud_work_education():
+    wordcloud = generate_wordcloud_work_education()
+    fig = plt.figure(figsize=(35, 25))
+    plt.imshow(wordcloud)
+    plt.axis("off")
+    plt.tight_layout(pad=0)
+    img = BytesIO()
+    fig.savefig(img)
+    img.seek(0)
+    plt.close()
+    return send_file(img, mimetype='image/png')
 
 @app.route('/sc1')
 def population_tweets():

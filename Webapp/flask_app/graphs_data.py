@@ -7,7 +7,7 @@ from wordcloud import WordCloud, STOPWORDS
 df = pd.read_excel('./static/data_files/tweets_couchdb.xlsx',sheet_name='Sheet1')
 income_df = pd.read_excel(r'./static/data_files/income.xlsx')
 df_city=pd.read_csv(r"./static/data_files/aurin_city_stats.csv")
-
+aurin_unemployment_df = pd.read_excel(r'./static/data_files/UnemploymentRate_Cleaned.xlsx', sheet_name='UnemploymentRate')
 
 
 def generate_word_cloud():
@@ -85,3 +85,26 @@ def generate_pie_chart():
     values = [labor_party_avg_sentiment_normalised, liberal_party_avg_sentiment_normalised]
 
     return values
+
+def unemployment_polarity():
+    work_df = df[df['Text'].str.contains('work|job|unemploy|employ|sack|hire', flags=re.IGNORECASE)]
+    work_df['polarity'] = work_df['Text'].apply(lambda x: TextBlob(x).sentiment.polarity)
+    work_tweets_by_city = work_df.groupby('City', as_index=False)['polarity'].mean()
+    selected_cities = ['Melbourne', 'Sydney', 'Perth (WA)', 'Adelaide', 'Brisbane']
+    final_work_tweets_df = work_tweets_by_city.loc[work_tweets_by_city['City'].isin(selected_cities)]
+
+    final_aurin_unemployment_df = aurin_unemployment_df.loc[aurin_unemployment_df[' sa4 name'].isin(selected_cities)]
+
+    return final_work_tweets_df, final_aurin_unemployment_df
+
+def generate_wordcloud_work_education():
+    work_education_df = df[df['Text'].str.contains('work|job|unemploy|employ|sack|hire|school|educat', flags=re.IGNORECASE)]
+
+    stop_words = ["https", "will", "co", "amp", "n", "t", "nhttps"] + list(STOPWORDS)
+    text = ' '.join(work_education_df['Text'])
+    text = text.encode("ascii", "ignore").decode('utf-8')
+    wordcloud_work_education = WordCloud(width=3000, height=2000, random_state=1,
+                          background_color='black', colormap='Set1',
+                          collocations=False, stopwords=stop_words).generate(text)
+
+    return wordcloud_work_education
