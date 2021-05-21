@@ -7,11 +7,9 @@ from wordcloud import WordCloud, STOPWORDS
 df = pd.read_excel('./static/data_files/tweets_couchdb.xlsx',sheet_name='Sheet1')
 income_df = pd.read_excel(r'./static/data_files/income.xlsx')
 df_city=pd.read_csv(r"./static/data_files/aurin_city_stats.csv")
-<<<<<<< HEAD
 aurin_unemployment_df = pd.read_excel(r'./static/data_files/UnemploymentRate_Cleaned.xlsx', sheet_name='UnemploymentRate')
-=======
 edu_df=pd.read_excel(r'./static/data_files/data_australia_edu.xlsx')
->>>>>>> 24e26c42d0fcb79a42c5730b289be572e3d9b236
+
 
 
 def generate_word_cloud():
@@ -88,7 +86,6 @@ def generate_pie_chart():
 
     values = [labor_party_avg_sentiment_normalised, liberal_party_avg_sentiment_normalised]
 
-<<<<<<< HEAD
     return values
 
 def unemployment_polarity():
@@ -98,7 +95,7 @@ def unemployment_polarity():
     selected_cities = ['Melbourne', 'Sydney', 'Perth (WA)', 'Adelaide', 'Brisbane']
     final_work_tweets_df = work_tweets_by_city.loc[work_tweets_by_city['City'].isin(selected_cities)]
 
-    final_aurin_unemployment_df = aurin_unemployment_df.loc[aurin_unemployment_df[' sa4 name'].isin(selected_cities)]
+    final_aurin_unemployment_df = aurin_unemployment_df.loc[aurin_unemployment_df['sa4_name'].isin(selected_cities)]
 
     return final_work_tweets_df, final_aurin_unemployment_df
 
@@ -113,22 +110,20 @@ def generate_wordcloud_work_education():
                           collocations=False, stopwords=stop_words).generate(text)
 
     return wordcloud_work_education
-=======
-    return 
     
-def subjectivity_unemployment():  # Subjectivity of tweets vs Unemployment
+def subjectivity_unemployment():
     unemp_df=pd.read_excel(r'./static/data_files/UnemploymentRate_Cleaned.xlsx')
     cities_df = df[df['City'].str.contains('Melbourne|Perth|Brisbane|Sydney|Adelaide', flags=re.IGNORECASE)]
     cities_df['subjectivity'] = cities_df['Text'].apply(lambda x: TextBlob(x).sentiment.subjectivity)
     subjectivity_city=cities_df[['City', 'subjectivity']].groupby(['City']).mean()
     city_sub = subjectivity_city.loc[["Melbourne","Adelaide","Brisbane","Sydney","Perth (WA)"]]
     city_sub=city_sub.reset_index()
-    unemp_df["sa4 name"]=unemp_df["sa4 name"].apply(lambda x: x.strip())
-    unemp_df=unemp_df.set_index('sa4 name')
+    unemp_df["sa4_name"]=unemp_df["sa4_name"].apply(lambda x: x.strip())
+    unemp_df=unemp_df.set_index('sa4_name')
     unemp_df1 = unemp_df.loc[["Melbourne","Adelaide","Brisbane","Sydney","Perth (WA)"]]
     unemp_df1=unemp_df1.reset_index()
-    unemp_df2=unemp_df1[['sa4 name','Unemployment Rate']]
-    unemp_df2.rename(columns={'sa4 name': 'City'}, inplace=True)
+    unemp_df2=unemp_df1[['sa4_name','unemp_rate']]
+    unemp_df2.rename(columns={'sa4_name': 'City'}, inplace=True)
     mergeit_df=city_sub.merge(unemp_df2, on="City")
 
     return mergeit_df
@@ -137,4 +132,3 @@ def subjectivity_unemployment():  # Subjectivity of tweets vs Unemployment
 def education_unemployment():
 
     return edu_df
->>>>>>> 24e26c42d0fcb79a42c5730b289be572e3d9b236
