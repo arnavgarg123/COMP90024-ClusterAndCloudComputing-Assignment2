@@ -33,6 +33,7 @@
             </ul>
          </div>
       </nav>
+<<<<<<< HEAD
       <div class="container-fluid">
          <div class="row">
             <div class="col-md-6">
@@ -47,5 +48,18 @@
    <script>
       var combo_chart = {{comboJSON | safe}};
       Plotly.plot('combo_chart1',combo_chart,{});
+=======
+      <div>
+         <div style="height:500px; width:950px;" id="combo_chart" class="combo_chart"></div>
+         <div style="height:500px; width:950px;" id="combo_chart1" class="combo_chart1"></div>
+      </div>
+   </body>
+   <script>
+      var combochart = {{subJSON | safe}};
+      Plotly.plot('combo_chart',combochart,{});
+
+      var combochart1 = {{hubJSON | safe}};
+      Plotly.plot('combo_chart1',combochart1,{});
+>>>>>>> 24e26c42d0fcb79a42c5730b289be572e3d9b236
    </script>
 </html>
