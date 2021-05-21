@@ -5,12 +5,7 @@ from io import BytesIO
 import plotly.express as px
 import json
 import plotly.graph_objects as go
-<<<<<<< HEAD
-from graphs_data import generate_word_cloud, generate_scores, city_comparison, city_tweets, income_sentiment, \
-    generate_pie_chart, generate_word_cloud_hashtags, unemployment_polarity, generate_wordcloud_work_education
-=======
-from graphs_data import generate_word_cloud, generate_scores, city_comparison, city_tweets, income_sentiment, generate_pie_chart, generate_word_cloud_hashtags,subjectivity_unemployment,education_unemployment
->>>>>>> 24e26c42d0fcb79a42c5730b289be572e3d9b236
+from graphs_data import generate_word_cloud, generate_scores, city_comparison, city_tweets, income_sentiment, generate_pie_chart, generate_word_cloud_hashtags,subjectivity_unemployment,education_unemployment,unemployment_polarity,generate_wordcloud_work_education
 from plotly.subplots import make_subplots
 
 
@@ -82,7 +77,6 @@ def wordcloud_hashtags():
 
 @app.route('/sc3')
 def scenario3():
-<<<<<<< HEAD
     final_work_tweets_df, final_aurin_unemployment_df = unemployment_polarity()
 
     fig = make_subplots(specs=[[{"secondary_y": True}]])
@@ -95,8 +89,8 @@ def scenario3():
     )
 
     fig.add_trace(
-        go.Scatter(x=final_aurin_unemployment_df[' sa4 name'],
-                   y=final_aurin_unemployment_df['Unemployment Rate'],
+        go.Scatter(x=final_aurin_unemployment_df['sa4_name'],
+                   y=final_aurin_unemployment_df['unemp_rate'],
                    name="Unemployment Rate", marker=dict(color="white")),
         secondary_y=True,
     )
@@ -110,21 +104,6 @@ def scenario3():
 
     comboJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return render_template('scenario3.html', comboJSON = comboJSON)
-
-@app.route('/wordcloud_work_education')
-def wordcloud_work_education():
-    wordcloud = generate_wordcloud_work_education()
-    fig = plt.figure(figsize=(35, 25))
-    plt.imshow(wordcloud)
-    plt.axis("off")
-    plt.tight_layout(pad=0)
-    img = BytesIO()
-    fig.savefig(img)
-    img.seek(0)
-    plt.close()
-    return send_file(img, mimetype='image/png')
-=======
     mergeit_df=subjectivity_unemployment()
     edu_df=education_unemployment()
 
@@ -138,7 +117,7 @@ def wordcloud_work_education():
     fig.add_trace(
         go.Scatter(
             x=mergeit_df['City'],
-            y=mergeit_df['Unemployment Rate'],
+            y=mergeit_df['unemp_rate'],
             name="Unemployment Rate"
         ) , secondary_y=True)
 
@@ -170,8 +149,20 @@ def wordcloud_work_education():
     fig.update_yaxes(title_text="<b>Unemployment Percent</b>", secondary_y=True, autorange=True)
     hubJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return render_template('scenario3.html', subJSON=subJSON, hubJSON=hubJSON)
->>>>>>> 24e26c42d0fcb79a42c5730b289be572e3d9b236
+    return render_template('scenario3.html', subJSON=subJSON, hubJSON=hubJSON, comboJSON = comboJSON)
+
+@app.route('/wordcloud_work_education')
+def wordcloud_work_education():
+    wordcloud = generate_wordcloud_work_education()
+    fig = plt.figure(figsize=(35, 25))
+    plt.imshow(wordcloud)
+    plt.axis("off")
+    plt.tight_layout(pad=0)
+    img = BytesIO()
+    fig.savefig(img)
+    img.seek(0)
+    plt.close()
+    return send_file(img, mimetype='image/png')
 
 @app.route('/sc1')
 def population_tweets():
