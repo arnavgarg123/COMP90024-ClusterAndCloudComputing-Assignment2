@@ -11,7 +11,7 @@ df_city=pd.read_csv(r"./static/data_files/aurin_city_stats.csv")
 
 
 def generate_word_cloud():
-    covid_df = df[df['Text'].str.contains('covid', flags=re.IGNORECASE)]
+    covid_df = df[df['Text'].str.contains('covid|vaccin', flags=re.IGNORECASE)]
     stop_words = ["https", "will", "co", "amp", "n", "t"] + list(STOPWORDS)
     text = ' '.join(covid_df['Text'])
     text = text.encode("ascii", "ignore").decode('utf-8')
@@ -21,14 +21,14 @@ def generate_word_cloud():
     return wordcloud
 
 def generate_scores():
-    covid_df = df[df['Text'].str.contains('covid', flags=re.IGNORECASE)]
+    covid_df = df[df['Text'].str.contains('covid|vaccin', flags=re.IGNORECASE)]
     covid_df['polarity'] = covid_df['Text'].apply(lambda x: TextBlob(x).sentiment.polarity)
     covid_df['subjectivity'] = covid_df['Text'].apply(lambda x: TextBlob(x).sentiment.subjectivity)
 
     return covid_df
 
 def city_comparison():    
-    covid_df = df[df['Text'].str.contains('covid', flags=re.IGNORECASE)]
+    covid_df = df[df['Text'].str.contains('covid|vaccin', flags=re.IGNORECASE)]
     tweets_by_city = df[['Text', 'City']].groupby(['City']).count()
     tweets_by_city.rename(columns={'Text': 'No. of tweets'}, inplace=True)
     covid_tweets_by_city = covid_df[['Text', 'City']].groupby(['City']).count()
