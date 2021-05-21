@@ -5,7 +5,7 @@ from io import BytesIO
 import plotly.express as px
 import json
 import plotly.graph_objects as go
-from graphs_data import generate_word_cloud, generate_scores, city_comparison, city_tweets, income_sentiment, generate_pie_chart, generate_word_cloud_hashtags
+from graphs_data import generate_word_cloud, generate_scores, city_comparison, city_tweets, income_sentiment, generate_pie_chart, generate_word_cloud_hashtags,subjectivity_unemployment,education_unemployment
 from plotly.subplots import make_subplots
 
 
@@ -33,29 +33,31 @@ def wordcloud():
 def polarityscore():
     data = generate_scores()
 
-    polarity_histogram = px.histogram(data, x="polarity", template='seaborn',  color_discrete_sequence=['indianred'])
+    polarity_histogram = px.histogram(data, x="polarity", template='seaborn',  color_discrete_sequence=['indianred'], title='<b>Polarity of Tweets</b>')
     graphJSON = json.dumps(polarity_histogram, cls=plotly.utils.PlotlyJSONEncoder)
-    heatMap = px.density_heatmap(data, x="polarity", y="subjectivity", template='seaborn')
+    heatMap = px.density_heatmap(data, x="polarity", y="subjectivity", template='plotly_white', title="<b>Polarity vs Subjectivity</b>")
     heatMapJSON = json.dumps(heatMap, cls=plotly.utils.PlotlyJSONEncoder)
 
     final_df = city_comparison()
-    fig = go.Figure()
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
     fig.add_trace(
         go.Scatter(
             x=final_df['City'],
             y=final_df['No. covid tweets'],
             name="Covid-related Tweets"
-        ))
+        ) ,secondary_y=True)
     fig.add_trace(
         go.Bar(
             x=final_df['City'],
             y=final_df['No. of tweets'],
             name="Total Tweets"
-        ))
+        ) , secondary_y=False)
 
     fig.update_traces(texttemplate='%{text:.2s}')
     fig.update_layout(legend_title_text='Legend',
-                      title_text='Total Tweets vs Covid-related Tweets', template='plotly_dark')
+                      title_text='<b>Total Tweets vs Covid-related Tweets<b>', template='plotly_white')
+    fig.update_yaxes(title_text="<b>Total Tweets</b>", secondary_y=False, autorange=True)
+    fig.update_yaxes(title_text="<b> Covid Tweets</b>", secondary_y=True, autorange=True)
     comboJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('scenario2.html', graphJSON = graphJSON, heatMapJSON = heatMapJSON, comboJSON = comboJSON)
@@ -75,7 +77,52 @@ def wordcloud_hashtags():
 
 @app.route('/sc3')
 def scenario3():
-    return render_template('scenario3.html')
+    mergeit_df=subjectivity_unemployment()
+    edu_df=education_unemployment()
+
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+    fig.add_trace(
+        go.Bar(
+            x=mergeit_df['City'],
+            y=mergeit_df['subjectivity'],
+            name="Subjectivity"
+        ) ,secondary_y=False)
+    fig.add_trace(
+        go.Scatter(
+            x=mergeit_df['City'],
+            y=mergeit_df['Unemployment Rate'],
+            name="Unemployment Rate"
+        ) , secondary_y=True)
+
+    fig.update_traces(texttemplate='%{text:.2s}')
+    fig.update_layout(legend_title_text='Legend',
+                      title_text='Subjectivity of Tweets Vs Unemployment', template='plotly_dark')
+    fig.update_yaxes(title_text="<b>Subjectivity</b>", secondary_y=False, autorange=True)
+    fig.update_yaxes(title_text="<b>Unemployment Rate</b>", secondary_y=True, autorange=True)
+    subJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+    fig.add_trace(
+        go.Scatter(
+            x=edu_df['Level of education'],
+            y=edu_df['Employed'],
+            name="Employment Percentage"
+        ) ,secondary_y=False)
+    fig.add_trace(
+        go.Scatter(
+            x=edu_df['Level of education'],
+            y=edu_df['Unemployed'],
+            name="Unemployment Percentage"
+        ) , secondary_y=True)
+
+    fig.update_traces(texttemplate='%{text:.2s}')
+    fig.update_layout(legend_title_text='Legend',
+                      title_text='Level of Education Vs Employment/Unemployment', template='plotly_dark')
+    fig.update_yaxes(title_text="<b>Employment Percent</b>", secondary_y=False, autorange=True)
+    fig.update_yaxes(title_text="<b>Unemployment Percent</b>", secondary_y=True, autorange=True)
+    hubJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+
+    return render_template('scenario3.html', subJSON=subJSON, hubJSON=hubJSON)
 
 @app.route('/sc1')
 def population_tweets():
