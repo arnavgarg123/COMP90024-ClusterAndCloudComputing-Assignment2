@@ -5,7 +5,7 @@ from io import BytesIO
 import plotly.express as px
 import json
 import plotly.graph_objects as go
-from fetch_couchdb_data import save_data,refresh_map_pt
+#from fetch_couchdb_data import save_data,refresh_map_pt
 from graphs_data import generate_word_cloud, generate_scores, city_comparison, city_tweets, income_sentiment, generate_pie_chart, generate_word_cloud_hashtags,subjectivity_unemployment,education_unemployment,unemployment_polarity,generate_wordcloud_work_education
 from plotly.subplots import make_subplots
 
@@ -16,11 +16,11 @@ app = Flask(__name__)
 def my_maps():  
     return render_template('index.html')
 
-@app.route('/refresh',methods=['GET','POST'])
-def refresh_db():
-  save_data()
-  refresh_map_pt()
-  return render_template('index.html')
+#@app.route('/refresh',methods=['GET','POST'])
+#def refresh_db():
+#  save_data()
+#  refresh_map_pt()
+#  return render_template('index.html')
 
 @app.route('/wordcloud')
 def wordcloud():
@@ -38,9 +38,9 @@ def wordcloud():
 def polarityscore():
     data = generate_scores()
 
-    polarity_histogram = px.histogram(data, x="polarity", template='seaborn',  color_discrete_sequence=['indianred'], title='<b>Polarity of Tweets</b>')
+    polarity_histogram = px.histogram(data, x="polarity", template='plotly_dark',  color_discrete_sequence=['indianred'], title='<b>Polarity of Tweets</b>')
     graphJSON = json.dumps(polarity_histogram, cls=plotly.utils.PlotlyJSONEncoder)
-    heatMap = px.density_heatmap(data, x="polarity", y="subjectivity", template='plotly_white', title="<b>Polarity vs Subjectivity</b>")
+    heatMap = px.density_heatmap(data, x="polarity", y="subjectivity", template='plotly_dark', title="<b>Polarity vs Subjectivity</b>")
     heatMapJSON = json.dumps(heatMap, cls=plotly.utils.PlotlyJSONEncoder)
 
     final_df = city_comparison()
@@ -60,7 +60,7 @@ def polarityscore():
 
     fig.update_traces(texttemplate='%{text:.2s}')
     fig.update_layout(legend_title_text='Legend',
-                      title_text='<b>Total Tweets vs Covid-related Tweets<b>', template='plotly_white')
+                      title_text='<b>Total Tweets vs Covid-related Tweets<b>', template='plotly_dark')
     fig.update_yaxes(title_text="<b>Total Tweets</b>", secondary_y=False, autorange=True)
     fig.update_yaxes(title_text="<b> Covid Tweets</b>", secondary_y=True, autorange=True)
     comboJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)

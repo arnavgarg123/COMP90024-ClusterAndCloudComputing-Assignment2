@@ -23,7 +23,7 @@
       </script>
    </head>
    <body>
-      <nav class="navbar navbar-expand-lg navbar-light">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navi">
          <span class="navbar-toggler-icon"></span>
          </button>
@@ -59,14 +59,14 @@
       </div>
       <script type="text/javascript">
          $.get('../static/data_files/index_stats.csv', function(data) {
-         var build = '<h1>At a Glance<\h1>';
+         var build = '<h1 class="text-white">At a Glance<\h1>';
          var rows = data.split("\n");
          rows.forEach( function getvalues(thisRow) {
          build += "\n";
          var columns = thisRow.split(",");
          if(columns.length==2)
             {
-                build += '<div class="card mt-auto"><div class="card-header bg-info text-white">' + columns[0] + '</div> <div class="card-body"><strong>'+columns[1]+ '</strong></div></div>\n'; 
+                build += '<div class="card mt-auto rounded-0"><div class="card-header">' + columns[0] + '</div> <div class="card-body"><strong>'+columns[1]+ '</strong></div></div>\n'; 
             }
          build += "\n";
          })
