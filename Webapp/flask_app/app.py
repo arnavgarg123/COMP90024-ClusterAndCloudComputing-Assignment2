@@ -5,28 +5,23 @@ from io import BytesIO
 import plotly.express as px
 import json
 import plotly.graph_objects as go
-#from fetch_couchdb_data import save_data,refresh_map_pt
 from graphs_data import generate_word_cloud, generate_scores, city_comparison, city_tweets, income_sentiment, generate_pie_chart, generate_word_cloud_hashtags,subjectivity_unemployment,education_unemployment,unemployment_polarity,generate_wordcloud_work_education
 from plotly.subplots import make_subplots
 
 
-app = Flask(__name__)
+app = Flask(__name__)             # create an app instance
 
 @app.route('/',methods=['GET','POST'])
-def my_maps():  
-    return render_template('index.html')
-
-#@app.route('/refresh',methods=['GET','POST'])
-#def refresh_db():
-#  save_data()
-#  refresh_map_pt()
-#  return render_template('index.html')
+def my_maps():
+  mapbox_access_token = 'pk.eyJ1IjoiZ3Vya2kwOSIsImEiOiJja29iejNiZjkxaWg0MndtdTFiZzdkcXVnIn0.hTqur4keYNgXKLjldLaVEw'
+  return render_template('index.html')
 
 @app.route('/wordcloud')
 def wordcloud():
     wordcloud = generate_word_cloud()
     fig = plt.figure(figsize=(40, 30))
     plt.imshow(wordcloud)
+    # No axis details
     plt.axis("off")
     img = BytesIO()
     fig.savefig(img)
@@ -38,7 +33,7 @@ def wordcloud():
 def polarityscore():
     data = generate_scores()
 
-    polarity_histogram = px.histogram(data, x="polarity", template='plotly_dark',  color_discrete_sequence=['indianred'], title='<b>Polarity of Tweets</b>')
+    polarity_histogram = px.histogram(data, x="polarity", template='plotly_dark' , color_discrete_sequence=['indianred'], title='<b>Polarity of Tweets</b>')
     graphJSON = json.dumps(polarity_histogram, cls=plotly.utils.PlotlyJSONEncoder)
     heatMap = px.density_heatmap(data, x="polarity", y="subjectivity", template='plotly_dark', title="<b>Polarity vs Subjectivity</b>")
     heatMapJSON = json.dumps(heatMap, cls=plotly.utils.PlotlyJSONEncoder)
@@ -50,19 +45,18 @@ def polarityscore():
             x=final_df['City'],
             y=final_df['No. covid tweets'],
             name="Covid-related Tweets"
-        ) ,secondary_y=True)
+        ))
     fig.add_trace(
         go.Bar(
             x=final_df['City'],
             y=final_df['No. of tweets'],
             name="Total Tweets"
-        ) , secondary_y=False)
+        ))
 
     fig.update_traces(texttemplate='%{text:.2s}')
     fig.update_layout(legend_title_text='Legend',
                       title_text='<b>Total Tweets vs Covid-related Tweets<b>', template='plotly_dark')
-    fig.update_yaxes(title_text="<b>Total Tweets</b>", secondary_y=False, autorange=True)
-    fig.update_yaxes(title_text="<b> Covid Tweets</b>", secondary_y=True, autorange=True)
+    fig.update_yaxes(title_text="<b>Tweets</b>", autorange=True)
     comboJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('scenario2.html', graphJSON = graphJSON, heatMapJSON = heatMapJSON, comboJSON = comboJSON)
@@ -203,14 +197,21 @@ def population_tweets():
             y=merge1_df['Sentiment'],
             name="Sentiment",
         ) ,row=1, col=2, secondary_y=True)
+    #fig.update_traces(hoverinfo='label+percent+name')
     fig.update_layout(legend_title_text='Legend',
-                      template='plotly_dark',                      
+                      template='plotly_dark',
+                      #margin=dict(r=10, t=25, b=10, l=130),
+                      
     )
     fig.update_yaxes(title_text="<b>Population</b>", secondary_y=False, autorange=True, row=1, col=1)
     fig.update_yaxes(title_text="<b>Tweets</b>", secondary_y=True, autorange=True, row=1, col=1)
     fig.update_yaxes(title_text="<b>Avg. Income</b>", secondary_y=False, autorange=True, row=1, col=2)
     fig.update_yaxes(title_text="<b>Sentiment</b>", secondary_y=True, autorange=True, row=1, col=2)
     subJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    #labels=['Labor Party', 'Liberal Party']
+    #fig.add_trace(
+        #go.Pie(labels=labels, values=values, name="liberal vs labour party"),
+              #)
     names = ['Labor Party', 'Liberal Party']
     color= ['cyan', 'crimson']
     pie_chart = px.pie(values=values, names=names, title='Sentiment Score of Labor vs Liberal Party', color=names,

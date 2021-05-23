@@ -63,7 +63,7 @@ estmtd_rsdnt_ppltn_smmry_sttstcs_30_jne_prsns_ttl_nm, lga_name_2019, yr, lga_cod
 200811,Inner West ,2019,14170
 16890,Inverell ,2019,14200
 6683,Junee ,2019,14300
-1253982,Brisbane ,2019,31000
+2560720,Brisbane ,2019,31000
 29745,Kempsey ,2019,14350
 23386,Kiama ,2019,14400
 127153,Ku-ring-gai ,2019,14500
@@ -114,7 +114,7 @@ estmtd_rsdnt_ppltn_smmry_sttstcs_30_jne_prsns_ttl_nm, lga_name_2019, yr, lga_cod
 20795,Snowy Monaro Regional ,2019,17040
 14479,Snowy Valleys ,2019,17080
 230611,Sutherland Shire ,2019,17150
-246343,Sydney ,2019,17200
+5367206,Sydney ,2019,17200
 62541,Tamworth Regional ,2019,17310
 6307,Temora ,2019,17350
 6594,Tenterfield ,2019,17400
@@ -188,7 +188,7 @@ estmtd_rsdnt_ppltn_smmry_sttstcs_30_jne_prsns_ttl_nm, lga_name_2019, yr, lga_cod
 93448,Maribyrnong ,2019,24330
 2671,Palm Island ,2019,35790
 118558,Maroondah ,2019,24410
-178955,Melbourne ,2019,24600
+5159211,Melbourne ,2019,24600
 164895,Melton ,2019,24650
 55777,Mildura ,2019,24780
 46082,Mitchell ,2019,24850
@@ -292,7 +292,7 @@ estmtd_rsdnt_ppltn_smmry_sttstcs_30_jne_prsns_ttl_nm, lga_name_2019, yr, lga_cod
 1016,Woorabinda ,2019,37550
 9137,Adelaide Plains ,2019,40150
 312,Wujal Wujal ,2019,37570
-25456,Adelaide ,2019,40070
+1359760,Adelaide ,2019,40070
 2573,Anangu Pitjantjatjara ,2019,40250
 10842,Berri and Barmera ,2019,40520
 52192,Campbelltown  ,2019,40910
@@ -509,7 +509,7 @@ estmtd_rsdnt_ppltn_smmry_sttstcs_30_jne_prsns_ttl_nm, lga_name_2019, yr, lga_cod
 6968,George Town ,2019,62210
 4602,Glamorgan/Spring Bay ,2019,62410
 47969,Glenorchy ,2019,62610
-54649,Hobart ,2019,62810
+238834,Hobart ,2019,62810
 17561,Huon Valley ,2019,63010
 6315,Kentish ,2019,63210
 1610,King Island ,2019,63410
@@ -529,7 +529,7 @@ estmtd_rsdnt_ppltn_smmry_sttstcs_30_jne_prsns_ttl_nm, lga_name_2019, yr, lga_cod
 7369,Barkly ,2019,70420
 4231,Central Desert ,2019,70620
 1370,Coomalie ,2019,70700
-82886,Darwin ,2019,71000
+147231,Darwin ,2019,71000
 10344,East Arnhem ,2019,71300
 10623,Katherine ,2019,72200
 25561,Litchfield ,2019,72300
