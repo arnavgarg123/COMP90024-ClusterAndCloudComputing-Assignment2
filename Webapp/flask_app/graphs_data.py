@@ -37,8 +37,11 @@ def city_comparison():
     covid_tweets_by_city.rename(columns={'Text': 'No. covid tweets'}, inplace=True)
     final_df = tweets_by_city.merge(covid_tweets_by_city, left_index=True, right_index=True)
     final_df = final_df.reset_index()
+    final_df = final_df.sort_values(by=["No. covid tweets"], ascending=False)
+    final_df=final_df.head(12)
 
     return final_df
+    
 def city_tweets():
     tweets_by_city = df[['Text', 'City']].groupby(['City']).count()
     tweets_by_city.rename(columns={'Text': 'No. of tweets'}, inplace=True)
