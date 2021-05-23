@@ -44,7 +44,7 @@ map.on('load', function () {
 
     map.addSource('pt', {
         "type": "geojson",
-        "data": "../static/data_files/map1.geojson"
+        "data": "../static/data_files/map_points.geojson"
     });
 
     map.addLayer({
@@ -58,6 +58,27 @@ map.on('load', function () {
             'circle-color': '#B42222',
             'circle-opacity': 0.3
         }
+    });
+    var popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+    });
+
+    map.on('mouseenter', 'aus_cities', function (e) {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'pointer';
+
+        var coordinates = e.features[0].geometry.coordinates;
+        //var description = e.features[0].properties.description;
+        var num_tweets=e.features[0].properties.num_tweets;
+        var num_users=e.features[0].properties.num_users;
+        var popup_text = '<h5>Summary</h5><p> Number of Tweets: <strong>' + num_tweets + '</strong> <br>Number of Users: <strong>'+ num_users+ '</strong></p>'
+        popup.setLngLat(coordinates).setHTML(popup_text).addTo(map);
+    });
+
+    map.on('mouseleave', 'aus_cities', function () {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
     });
 
 
