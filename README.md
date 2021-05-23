@@ -4,7 +4,7 @@ Studied correlation between true data and extracted data from tweets in various 
 Map view to get some general statistics on location enabled tweets.
 
 ## Motivation
-Project was created to understand the corelation between Twitter and AURIN data. Twitter is a very rich source for raw data. We thought of processing this data to understand different aspects of life in Australian cities. We wanted to build a system which could compare some aspects of life between different cities. Hence we created 3 scenarios and focused on which aspects of these can we extract from twitter and compare with AURIN data.
+Project was created to understand the corelation between Twitter and AURIN data. Twitter is a very rich source for raw data. We thought of processing this data to understand different aspects of life in Australian cities. We wanted to build a system which could compare some aspects of life between different cities. Hence, we created 3 scenarios and focused on which aspects of these can we extract from twitter and compare with AURIN data.
 
 ## Resources Used
 - Melbourne Research Cloud
