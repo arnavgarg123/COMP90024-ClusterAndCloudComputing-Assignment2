@@ -38,15 +38,14 @@ def convert_geojson(df):
     insert_features = lambda X: features.append(
             geojson.Feature(geometry=geojson.Point((X["long"],
                                                     X["lat"])),
-                            properties=dict(num_tweets=X["num_tweets"],
-                                            radius=X["circle_radius"],num_users=X["num_users"])))
+                            properties=dict(city=X["City"],num_tweets=X["num_tweets"],radius=X["circle_radius"],num_users=X["num_users"])))
     df.apply(insert_features, axis=1)
-    with open('./static/data_files/map_points.geojson', 'w') as file:
+    with open('./static/data_files/map_points.geojson', 'w', encoding="utf-8") as file:
         geojson.dump(geojson.FeatureCollection(features), file, sort_keys=True, ensure_ascii=False)
 
 def refresh_map_pt():
     df = pd.read_excel('./static/data_files/tweets_couchdb.xlsx',sheet_name='Sheet1')
-    tweets_grp_loc=df[['Co-ordinates','ID','UID']].groupby(['Co-ordinates']).count()
+    tweets_grp_loc=df[['Co-ordinates','City','ID','UID']].groupby(['Co-ordinates','City']).nunique()
     tweets_grp_loc=tweets_grp_loc.reset_index()
     tweets_grp_loc.rename(columns={'Co-ordinates': 'coordinates'}, inplace=True)
     tweets_grp_loc.rename(columns={'ID': 'num_tweets'}, inplace=True)
@@ -64,7 +63,7 @@ def refresh_map_pt():
     tweets_grp_loc['circle_radius']=log_tweets
     tweets_grp_loc['lat']=lat
     tweets_grp_loc['long']=long
-    tweets_grp_loc=tweets_grp_loc[['long','lat','circle_radius','num_tweets','num_users']]
+    tweets_grp_loc=tweets_grp_loc[['long','lat','circle_radius','City','num_tweets','num_users']]
     convert_geojson(tweets_grp_loc)
 
 save_data()

@@ -65,14 +65,12 @@ map.on('load', function () {
     });
 
     map.on('mouseenter', 'aus_cities', function (e) {
-        // Change the cursor style as a UI indicator.
         map.getCanvas().style.cursor = 'pointer';
-
         var coordinates = e.features[0].geometry.coordinates;
-        //var description = e.features[0].properties.description;
+        var city = e.features[0].properties.city;
         var num_tweets=e.features[0].properties.num_tweets;
         var num_users=e.features[0].properties.num_users;
-        var popup_text = '<h5>Summary</h5><p> Number of Tweets: <strong>' + num_tweets + '</strong> <br>Number of Users: <strong>'+ num_users+ '</strong></p>'
+        var popup_text = '<h5>'+ city +'</h5><p> Number of Tweets: <strong>' + num_tweets + '</strong> <br>Number of Users: <strong>'+ num_users+ '</strong></p>'
         popup.setLngLat(coordinates).setHTML(popup_text).addTo(map);
     });
 
@@ -112,19 +110,15 @@ map.on('mouseleave', 'aus_states', function () {
         );
     }
     hoveredStateId = null;
-    map.getCanvas().style.cursor = '';
+    //map.getCanvas().style.cursor = '';
 });
 
 map.on('click', 'aus_states', function (e) {
     show_element('resetmap');
-    var state_code = e.features[0].properties.STATE_CODE;
     var center_lat = e.features[0].properties.CENTER_LAT;
     var center_long = e.features[0].properties.CENTER_LONG;
-
     var zoom_pt = e.features[0].properties.ZOOM_PT;
-    //map.flyTo({center: center_pt, zoom: zoom_pt});
     map.flyTo({ center: [center_lat, center_long], zoom: zoom_pt });
-    //window.location="sc1?state_code="+zoom_pt;
 });
 
 document.getElementById('resetmap').addEventListener('click', function () {
@@ -140,7 +134,5 @@ map.on('zoom', function () {
         zoomThreshold = 4.4;
     } else {
         zoomThreshold = 4.4;
-        //            stateLegendEl.style.display = 'block';
-        //            countyLegendEl.style.display = 'none';
     }
 });

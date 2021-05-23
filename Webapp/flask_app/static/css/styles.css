@@ -1,11 +1,14 @@
 html, body, .container-fluid {
     height: 100%;
-   /* overflow-y:hidden;*/
-   background: rgb(17, 17, 17);"
+    /*overflow-x:hidden;*/
+    background: rgb(17, 17, 17);
+    box-sizing: border-box;
 }
 
 #map { 
-    position: absolute; top: 0; bottom: 0; width: 100%;
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 #sidebar {
@@ -15,9 +18,10 @@ html, body, .container-fluid {
 #resetmap {
 display: none;
 position: relative;
-top:-87%;
-left:2%;
+top:5%;
+left:5%;
 text-align: center;
 color: #fff;
 background: #3182bd;
+z-index:1000;
 }
