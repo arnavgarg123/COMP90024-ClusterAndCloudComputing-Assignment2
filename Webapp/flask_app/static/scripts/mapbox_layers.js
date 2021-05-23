@@ -44,7 +44,7 @@ map.on('load', function () {
 
     map.addSource('pt', {
         "type": "geojson",
-        "data": "../static/data_files/map1.geojson"
+        "data": "../static/data_files/map_points.geojson"
     });
 
     map.addLayer({
