@@ -19,10 +19,10 @@ def my_maps():
 @app.route('/wordcloud')
 def wordcloud():
     wordcloud = generate_word_cloud()
-    fig = plt.figure(figsize=(40, 30))
+    fig = plt.figure(figsize=(5, 4))
     plt.imshow(wordcloud)
-    # No axis details
     plt.axis("off")
+    plt.tight_layout(pad=0)
     img = BytesIO()
     fig.savefig(img)
     img.seek(0)
@@ -33,9 +33,9 @@ def wordcloud():
 def polarityscore():
     data = generate_scores()
 
-    polarity_histogram = px.histogram(data, x="polarity", template='plotly_dark' , color_discrete_sequence=['indianred'], title='<b>Polarity of Tweets</b>')
+    polarity_histogram = px.histogram(data, x="polarity", template='plotly_dark' , color_discrete_sequence=['indianred'])
     graphJSON = json.dumps(polarity_histogram, cls=plotly.utils.PlotlyJSONEncoder)
-    heatMap = px.density_heatmap(data, x="polarity", y="subjectivity", template='plotly_dark', title="<b>Polarity vs Subjectivity</b>")
+    heatMap = px.density_heatmap(data, x="polarity", y="subjectivity", template='plotly_dark')
     heatMapJSON = json.dumps(heatMap, cls=plotly.utils.PlotlyJSONEncoder)
 
     final_df = city_comparison()
@@ -54,9 +54,8 @@ def polarityscore():
         ))
 
     fig.update_traces(texttemplate='%{text:.2s}')
-    fig.update_layout(legend_title_text='Legend',
-                      title_text='<b>Total Tweets vs Covid-related Tweets<b>', template='plotly_dark')
-    fig.update_yaxes(title_text="<b>Tweets</b>", autorange=True)
+    fig.update_layout(legend_title_text='Legend', template='plotly_dark')
+    fig.update_yaxes(title_text="tweets", autorange=True)
     comboJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('scenario2.html', graphJSON = graphJSON, heatMapJSON = heatMapJSON, comboJSON = comboJSON)
@@ -64,7 +63,7 @@ def polarityscore():
 @app.route('/wordcloud_hashtags')
 def wordcloud_hashtags():
     wordcloud_hashtags = generate_word_cloud_hashtags()
-    fig = plt.figure(figsize=(35, 25))
+    fig = plt.figure(figsize=(5, 4))
     plt.imshow(wordcloud_hashtags)
     plt.axis("off")
     plt.tight_layout(pad=0)
@@ -95,8 +94,7 @@ def scenario3():
     )
 
     fig.update_traces(texttemplate='%{text:.2s}')
-    fig.update_layout(title_text='Polarity vs Unemployment Rate', legend_title_text='Legend', template='plotly_dark',
-                      title_x=0.5)
+    fig.update_layout(legend_title_text='Legend', template='plotly_dark')
 
     fig.update_yaxes(title_text="<b>Unemployment Rate</b>", secondary_y=True)
     fig.update_yaxes(title_text="<b>Polarity</b>", secondary_y=False)
@@ -121,8 +119,7 @@ def scenario3():
         ) , secondary_y=True)
 
     fig.update_traces(texttemplate='%{text:.2s}')
-    fig.update_layout(legend_title_text='Legend',
-                      title_text='Subjectivity of Tweets Vs Unemployment', template='plotly_dark')
+    fig.update_layout(legend_title_text='Legend', template='plotly_dark')
     fig.update_yaxes(title_text="<b>Subjectivity</b>", secondary_y=False, autorange=True)
     fig.update_yaxes(title_text="<b>Unemployment Rate</b>", secondary_y=True, autorange=True)
     subJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
@@ -136,8 +133,7 @@ def scenario3():
         ))
 
     fig.update_traces(texttemplate='%{text:.2s}')
-    fig.update_layout(legend_title_text='Legend',
-                      title_text='Level of Education Vs Unemployment', template='plotly_dark')
+    fig.update_layout(legend_title_text='Legend', template='plotly_dark')
     fig.update_yaxes(title_text="<b>Unemployment Percent</b>", autorange=True)
     hubJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
@@ -146,7 +142,7 @@ def scenario3():
 @app.route('/wordcloud_work_education')
 def wordcloud_work_education():
     wordcloud = generate_wordcloud_work_education()
-    fig = plt.figure(figsize=(35, 25))
+    fig = plt.figure(figsize=(5,4))
     plt.imshow(wordcloud)
     plt.axis("off")
     plt.tight_layout(pad=0)
@@ -170,51 +166,45 @@ def population_tweets():
         go.Bar(
             x=top_df['City'],
             y=top_df['Number of people'],
-            name="Population",marker=dict(color="crimson")
-            
+            name="Population"
         ) ,row=1, col=1, secondary_y=False)
     fig.add_trace(
         go.Scatter(
             x=top_df['City'],
             y=top_df['No. of tweets'],
-            name="Total Tweets",
+            name="Total Tweets"
         ) ,row=1, col=1, secondary_y=True)
     fig.update_traces(texttemplate='%{text:.2s}')
-    fig.update_layout(legend_title_text='Legend',
-                    template='plotly_dark')
-    
     subJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     fig.add_trace(
         go.Bar(
             x=merge1_df['City'],
             y=merge1_df['Avg. Income AUD'],
-            name="Avg. Income",
-            
+            name="Avg. Income"
         ) ,row=1, col=2, secondary_y=False)
     fig.add_trace(
         go.Scatter(
             x=merge1_df['City'],
             y=merge1_df['Sentiment'],
-            name="Sentiment",
+            name="Sentiment"
         ) ,row=1, col=2, secondary_y=True)
-    #fig.update_traces(hoverinfo='label+percent+name')
-    fig.update_layout(legend_title_text='Legend',
-                      template='plotly_dark',
-                      #margin=dict(r=10, t=25, b=10, l=130),
-                      
+    fig.update_layout(
+                      template='plotly_dark'             
     )
     fig.update_yaxes(title_text="<b>Population</b>", secondary_y=False, autorange=True, row=1, col=1)
     fig.update_yaxes(title_text="<b>Tweets</b>", secondary_y=True, autorange=True, row=1, col=1)
     fig.update_yaxes(title_text="<b>Avg. Income</b>", secondary_y=False, autorange=True, row=1, col=2)
     fig.update_yaxes(title_text="<b>Sentiment</b>", secondary_y=True, autorange=True, row=1, col=2)
+    fig.update_layout(legend=dict(
+    yanchor="top",
+    y=0.99,
+    xanchor="left",
+    x=0.42
+))
     subJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    #labels=['Labor Party', 'Liberal Party']
-    #fig.add_trace(
-        #go.Pie(labels=labels, values=values, name="liberal vs labour party"),
-              #)
     names = ['Labor Party', 'Liberal Party']
     color= ['cyan', 'crimson']
-    pie_chart = px.pie(values=values, names=names, title='Sentiment Score of Labor vs Liberal Party', color=names,
+    pie_chart = px.pie(values=values, names=names, color=names,
                  color_discrete_map={names[0]: color[0], names[1]: color[1]},template='plotly_dark')
     pieJSON = json.dumps(pie_chart, cls=plotly.utils.PlotlyJSONEncoder)
     return render_template('scenario1.html', subJSON = subJSON, pieJSON=pieJSON)

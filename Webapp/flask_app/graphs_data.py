@@ -17,7 +17,7 @@ def generate_word_cloud():
     stop_words = ["https", "will", "co", "amp", "n", "t"] + list(STOPWORDS)
     text = ' '.join(covid_df['Text'])
     text = text.encode("ascii", "ignore").decode('utf-8')
-    wordcloud = WordCloud(width=600, height=400, random_state=1,
+    wordcloud = WordCloud(width=400, height=320, random_state=1,
                           background_color='black', colormap='Set1',
                           collocations=False, stopwords=stop_words).generate(text)
     return wordcloud
@@ -69,7 +69,7 @@ def generate_word_cloud_hashtags():
     result = re.findall(pattern, text)
     result = [hashtag[1:] for hashtag in result]
     result = ' '.join(result)
-    wordcloud_hashtags = WordCloud(width=600, height=500, random_state=1,
+    wordcloud_hashtags = WordCloud(width=400, height=320, random_state=1,
                                    background_color='black', colormap='Set1',
                                    collocations=False).generate(result)
     return wordcloud_hashtags
@@ -108,7 +108,7 @@ def generate_wordcloud_work_education():
     stop_words = ["https", "will", "co", "amp", "n", "t", "nhttps"] + list(STOPWORDS)
     text = ' '.join(work_education_df['Text'])
     text = text.encode("ascii", "ignore").decode('utf-8')
-    wordcloud_work_education = WordCloud(width=600, height=400, random_state=1,
+    wordcloud_work_education = WordCloud(width=400, height=320, random_state=1,
                           background_color='black', colormap='Set1',
                           collocations=False, stopwords=stop_words).generate(text)
 

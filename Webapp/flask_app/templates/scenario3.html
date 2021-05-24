@@ -33,20 +33,29 @@
             </ul>
          </div>
       </nav>
-      <div style=" background: rgb(17, 17, 17);" class="container-fluid">
+      <div class="container-fluid text-center">
          <div class="row">
             <div class="col-md-6">
+               <br>
+               <h5 class="text-white">Tweet Polarity v/s Unemployment</h5>
                <div id="combo_chart1" class="combo_chart"></div>
             </div>
             <div class="col-md-6">
-               <img src = {{ url_for('wordcloud_work_education') }} alt = "Woredcloud" height = "450"/>
+               <br>
+               <h5 class="text-white">Keywords in Tweets related to Employment</h5>
+               <br>
+               <img src = {{ url_for('wordcloud_work_education') }} alt = "Wordcloud" />
             </div>
          </div>
          <div class="row">
             <div class="col-md-6">
-            <div style="height:500px;" id="combo_chart" class="combo_chart"></div>
+               <br>
+               <h5 class="text-white">Tweet Subjectivity v/s Unemployment</h5>
+            <div id="combo_chart" class="combo_chart"></div>
          </div>
          <div class="col-md-6">
+            <br>
+            <h5 class="text-white">Unemployment Rate for Different Education Levels</h5>
             <div id="combo_chart2" class="combo_chart2"></div>
          </div>
       </div>
