@@ -7,7 +7,7 @@ import json
 import plotly.graph_objects as go
 from graphs_data import generate_word_cloud, generate_scores, city_comparison, city_tweets, income_sentiment, generate_pie_chart, generate_word_cloud_hashtags,subjectivity_unemployment,education_unemployment,unemployment_polarity,generate_wordcloud_work_education
 from plotly.subplots import make_subplots
-from fetch_couchdb_data import save_data,refresh_map_pt
+#from fetch_couchdb_data import save_data,refresh_map_pt
 
 
 app = Flask(__name__)
@@ -16,11 +16,11 @@ app = Flask(__name__)
 def index_pg():
   return render_template('index.html')
 
-@app.route('/refresh',methods=['GET','POST'])
-def refresh_db():
-  save_data()
-  refresh_map_pt()
-  return render_template('index.html')
+#@app.route('/refresh',methods=['GET','POST'])
+#def refresh_db():
+#  save_data()
+#  refresh_map_pt()
+#  return render_template('index.html')
 
 @app.route('/wordcloud')
 def wordcloud():
