@@ -64,11 +64,12 @@ Social media platform generates huge amount of data daily. When cleaned properly
   - Location of tweets
   - Density of number of tweets from a locality
 - Graphs
-  - Scenario 1 (Life in different cities)
-    - 
+  - Scenario 1 (Life in Australia)
+    - Provides a general overview of life in Australia, covering a wider range of topics from political party preference to the most frequently used hashtags in tweets. 
   - Scenario 2 (Covid-19)
-    - 
-  - Scenario 3 (Effects of unemployment on people)
+    - Analysis was performed on tweets relating to Covid-19 to see how people are feeling with regards to the ongoing pandemic. 
+  - Scenario 3 (Unemployment)
+    - We delve into unemployment in Australia and its possible correlation with education levels. Analysis for this scenario was performed on tweets related to work and               education.
 
 ## Deployment
 ### Setup
