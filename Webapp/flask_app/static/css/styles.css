@@ -1,6 +1,5 @@
 html, body, .container-fluid {
-    height: 100%;
-    /*overflow-x:hidden;*/
+    overflow-x:hidden;
     background: rgb(17, 17, 17);
     box-sizing: border-box;
 }
@@ -22,6 +21,6 @@ top:5%;
 left:5%;
 text-align: center;
 color: #fff;
-background: #3182bd;
+background: #2f4f4f;
 z-index:1000;
 }

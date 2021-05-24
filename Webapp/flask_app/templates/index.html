@@ -60,11 +60,11 @@
       </div>
       <script type="text/javascript">
          $.get('../static/data_files/index_stats.csv', function(data) {
-         var build = '<h1 class="text-white">At a Glance<\h1>';
+         var build = '<h1 class="text-white m-4">At a Glance<\h1>';
          var rows = data.split("\n");
          rows.forEach( function getvalues(thisRow) {
          build += "\n";
-         var columns = thisRow.split(",");
+         var columns = thisRow.split("|");
          if(columns.length==2)
             {
                 build += '<div class="card mt-auto rounded-0"><div class="card-header">' + columns[0] + '</div> <div class="card-body"><strong>'+columns[1]+ '</strong></div></div>\n'; 

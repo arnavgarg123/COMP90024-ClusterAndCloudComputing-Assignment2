@@ -11,22 +11,22 @@ var zoomThreshold = 4.4;
 
 map.on('load', function () {
     map.resize();
-    map.addSource('test', {
+    map.addSource('boundary', {
         'type': 'geojson',
-        'data': '../static/data_files/aus_states_boundary.json'
+        'data': '../static/data_files/aus_states_boundary.geojson'
     });
 
     map.addLayer({
         'id': 'aus_states',
         'type': 'fill',
-        'source': 'test',
+        'source': 'boundary',
         'layout': {},
         'paint': {
-            'fill-color': '#3182bd',
+            'fill-color': '#2f4f4f',
             'fill-opacity': [
                 'case',
                 ['boolean', ['feature-state', 'hover'], false],
-                0.5,
+                0.7,
                 0.3
             ]
         }
@@ -34,7 +34,7 @@ map.on('load', function () {
     map.addLayer({
         'id': 'outline',
         'type': 'line',
-        'source': 'test',
+        'source': 'boundary',
         'layout': {},
         'paint': {
             'line-color': '#000',
@@ -86,13 +86,13 @@ map.on('mousemove', 'aus_states', function (e) {
     if (e.features.length > 0) {
         if (hoveredStateId !== null) {
             map.setFeatureState(
-                { source: 'test', id: hoveredStateId },
+                { source: 'boundary', id: hoveredStateId },
                 { hover: false }
             );
         }
         hoveredStateId = e.features[0].id;
         map.setFeatureState(
-            { source: 'test', id: hoveredStateId },
+            { source: 'boundary', id: hoveredStateId },
             { hover: true }
         );
     }
@@ -105,12 +105,11 @@ map.on('mouseenter', 'aus_states', function () {
 map.on('mouseleave', 'aus_states', function () {
     if (hoveredStateId !== null) {
         map.setFeatureState(
-            { source: 'test', id: hoveredStateId },
+            { source: 'boundary', id: hoveredStateId },
             { hover: false }
         );
     }
     hoveredStateId = null;
-    //map.getCanvas().style.cursor = '';
 });
 
 map.on('click', 'aus_states', function (e) {
@@ -127,12 +126,4 @@ document.getElementById('resetmap').addEventListener('click', function () {
         zoom: 3.8
     });
     hide_element('resetmap');
-});
-
-map.on('zoom', function () {
-    if (map.getZoom() > zoomThreshold) {
-        zoomThreshold = 4.4;
-    } else {
-        zoomThreshold = 4.4;
-    }
 });
