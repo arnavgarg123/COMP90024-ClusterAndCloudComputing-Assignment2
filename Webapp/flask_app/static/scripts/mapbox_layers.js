@@ -13,7 +13,7 @@ map.on('load', function () {
     map.resize();
     map.addSource('boundary', {
         'type': 'geojson',
-        'data': '../static/data_files/aus_states_boundary_2.geojson'
+        'data': '../static/data_files/aus_states_boundary.geojson'
     });
 
     map.addLayer({
@@ -37,8 +37,8 @@ map.on('load', function () {
         'source': 'boundary',
         'layout': {},
         'paint': {
-            'line-color': '#000',
-            'line-width': 2
+            'line-color': '#2f4f4f',
+            'line-width': 1
         }
     });
 
