@@ -69,7 +69,26 @@ Social media platform generates huge amount of data daily. When cleaned properly
   - Scenario 2 (Covid-19)
     - 
   - Scenario 3 (Effects of unemployment on people)
-    - 
+
+## Deployment
+### Setup
+- Python-3 needs to be installed locally
+- You need to have Ansible installed locally
+- You will have to get your own Openstackrc file along with a openstack api password
+
+### Steps for Deployment:
+- Create your own key pair and  upload it to MRC.
+- In the inventory.ini file, replace the value of “ansible_ssh_private_key_file” to the path of the key on your system.
+- Also in var.yaml (found in the variable directory) replace the value of “instance_key_name” to the name that you gave your key.
+- Clone Github directory. We need the AnsiblePlaybook directory locally.
+  - ```git clone “https://github.com/arnavgarg123/COMP90024-ClusterAndCloudComputing-Assignment2.git”```
+- Make sure you are connected to VPN if you are accessing MRC from outside the university.
+- Now go into Ansible directory and run 
+  - ```. ./unimelb-comp90024-2021-grp-48-openrc.sh; ansible-playbook -i inventory/inventory.ini mrc.yaml```
+- Enter your password and wait for it to execute. (Takes around 15 min)
+
+Once the system has been deployed you can access the webapp using the url of the webapp instance. 
+
 
 ## Future work
 - Data from other social media sites can be gathered and used along with this data to increase precision of our analysis.
