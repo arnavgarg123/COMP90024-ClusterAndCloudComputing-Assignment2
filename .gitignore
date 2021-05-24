@@ -1,5 +1,4 @@
 TwitterAndAurinDataHarvestor/*.json
-*.csv
 *.h5
 __pycache__
 .idea
