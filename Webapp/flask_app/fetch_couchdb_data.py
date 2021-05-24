@@ -64,6 +64,15 @@ def refresh_map_pt():
     tweets_grp_loc['lat']=lat
     tweets_grp_loc['long']=long
     tweets_grp_loc=tweets_grp_loc[['long','lat','circle_radius','City','num_tweets','num_users']]
+    summary={}
+    summary['Population']='25,693,059'
+    summary['Number of Tweets']=f"{df['ID'].nunique():,}"
+    summary['Active Users']=f"{df['UID'].nunique():,}"
+    summary['Tweets/User']=round(df['ID'].nunique()/df['UID'].nunique(),2)
+    summary['Average Sentiment']=round(df['Sentiment'].mean(),2)
+    with open('./static/data_files/index_stats.csv', 'w') as f:
+        for key, value in summary.items():
+            f.write('%s|%s\n'%(key,value))
     convert_geojson(tweets_grp_loc)
 
 save_data()
