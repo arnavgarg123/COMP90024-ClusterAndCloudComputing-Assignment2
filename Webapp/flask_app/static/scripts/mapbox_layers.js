@@ -13,7 +13,7 @@ map.on('load', function () {
     map.resize();
     map.addSource('boundary', {
         'type': 'geojson',
-        'data': '../static/data_files/aus_states_boundary.geojson'
+        'data': '../static/data_files/aus_states_boundary_2.geojson'
     });
 
     map.addLayer({
