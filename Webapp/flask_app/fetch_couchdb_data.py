@@ -74,5 +74,3 @@ def refresh_map_pt():
         for key, value in summary.items():
             f.write('%s|%s\n'%(key,value))
     convert_geojson(tweets_grp_loc)
-
-save_data()
