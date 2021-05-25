@@ -6,6 +6,7 @@ Webapp for visualisation of data. Contains Maps, Graphs.
 - Install Docker-engine on your system.<br/> For Ubuntu run command <br/>```apt install docker.io```
 - You will need internet access to pull a base image from docher hub
 - To run locally, comment out proxy environment variables from dockerfile.
+- To run locally change the ip in ip.txt file to couchdb's ip.
 
 ## Execution
 - To run without Docker
