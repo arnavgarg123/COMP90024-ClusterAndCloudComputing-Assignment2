@@ -75,6 +75,8 @@ Social media platform generates huge amount of data daily. When cleaned properly
     - We delve into unemployment in Australia and its possible correlation with education levels. Analysis for this scenario was performed on tweets related to work and education.
   ![Architecture Diagram](https://github.com/arnavgarg123/COMP90024-ClusterAndCloudComputing-Assignment2/blob/main/Docs/Scenario3.png)
 
+To understand the result of each graph, read our [report](https://github.com/arnavgarg123/COMP90024-ClusterAndCloudComputing-Assignment2/blob/main/Docs/Report_Cloud%20and%20Cluster_Assignment2_Group48.pdf). 
+
 ## Deployment
 ### Setup
 - Python-3 needs to be installed locally
