@@ -1,3 +1,4 @@
+# Webapp
 Webapp for visualisation of data. Contains Maps, Graphs.
 
 ## Setup
