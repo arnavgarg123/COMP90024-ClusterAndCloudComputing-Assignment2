@@ -5,6 +5,7 @@ Webapp for visualisation of data. Contains Maps, Graphs. <br/>Gunicorn layer use
 ## Running on localhost
 - System uses an ip.txt file to read in the ip of master couch db instance.
 - Create an ip.txt file with appropriate ip inside flask_app directory.
+- Comment out proxy environment variables from dockerfile of nginx and flask_app.
 
 ## Setup
 - Make sure you have python-3 installed on your system
