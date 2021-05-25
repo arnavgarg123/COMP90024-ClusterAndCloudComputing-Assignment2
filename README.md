@@ -63,13 +63,17 @@ Social media platform generates huge amount of data daily. When cleaned properly
   - General Statistics
   - Location of tweets
   - Density of number of tweets from a locality
+  ![Architecture Diagram](https://github.com/arnavgarg123/COMP90024-ClusterAndCloudComputing-Assignment2/blob/main/Docs/Map.png)
 - Graphs
   - Scenario 1 (Life in Australia)
     - Provides a general overview of life in Australia, covering a wider range of topics from political party preference to the most frequently used hashtags in tweets. 
+  ![Architecture Diagram](https://github.com/arnavgarg123/COMP90024-ClusterAndCloudComputing-Assignment2/blob/main/Docs/Scenario1.png)
   - Scenario 2 (Covid-19)
     - Analysis was performed on tweets relating to Covid-19 to see how people are feeling with regards to the ongoing pandemic. 
+  ![Architecture Diagram](https://github.com/arnavgarg123/COMP90024-ClusterAndCloudComputing-Assignment2/blob/main/Docs/Scenario2.png)
   - Scenario 3 (Unemployment)
-    - We delve into unemployment in Australia and its possible correlation with education levels. Analysis for this scenario was performed on tweets related to work and               education.
+    - We delve into unemployment in Australia and its possible correlation with education levels. Analysis for this scenario was performed on tweets related to work and education.
+  ![Architecture Diagram](https://github.com/arnavgarg123/COMP90024-ClusterAndCloudComputing-Assignment2/blob/main/Docs/Scenario3.png)
 
 ## Deployment
 ### Setup
