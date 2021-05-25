@@ -6,6 +6,7 @@ Load balancer of nginx is also used.
 ## config
 - Default config file replaced with our file to serve our application.
 - Flask app container is accessed using internal network created in docker compose in parent directory.
+- To run locally, comment out proxy environment variables from dockerfile.
 
 ## Setup
 - No need to run this seperatly. Just run the ```docker-compose``` file in parent directory.
