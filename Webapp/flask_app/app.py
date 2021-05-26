@@ -33,7 +33,6 @@ def index_pg():
 @app.route('/refresh',methods=['GET','POST'])
 def refresh_db():
   save_data()
-  refresh_map_pt()
   return render_template('index.html')
 
 @app.route('/wordcloud')
