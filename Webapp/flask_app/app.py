@@ -19,7 +19,9 @@ from io import BytesIO
 import plotly.express as px
 import json
 import plotly.graph_objects as go
-from graphs_data import generate_word_cloud, generate_scores, city_comparison, city_tweets, income_sentiment, generate_pie_chart, generate_word_cloud_hashtags,subjectivity_unemployment,education_unemployment,unemployment_polarity,generate_wordcloud_work_education
+from scenario1 import city_tweets, income_sentiment, generate_pie_chart, generate_word_cloud_hashtags
+from scenario2 import generate_word_cloud, generate_scores, city_comparison
+from scenario3 import subjectivity_unemployment,education_unemployment,unemployment_polarity,generate_wordcloud_work_education
 from plotly.subplots import make_subplots
 from fetch_couchdb_data import save_data,refresh_map_pt,convert_geojson
 
@@ -230,6 +232,6 @@ def population_tweets():
     
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,use_reloader=True)
 
 
