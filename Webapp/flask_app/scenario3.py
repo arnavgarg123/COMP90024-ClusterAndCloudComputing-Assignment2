@@ -17,9 +17,40 @@ import re
 from textblob import TextBlob
 import plotly.graph_objects as go
 from wordcloud import WordCloud, STOPWORDS
+import couchdb
+import xlsxwriter
 
+# Loading Covid tweets
+def emp_save_data():
+    a=open('./ip.txt')
+    a=a.readline()
+    a=a.strip()
+    a='http://'+a+':5984/'
+    couchserver=couchdb.Server(url=a)
+    couchserver.resource.credentials=('admin','admin')
+    c=[]
+    b=couchserver['tweet']
+    for i in b.view('all_doc/Employment'):
+        c=c+[i.key]
+    workbook = xlsxwriter.Workbook('./static/data_files/emptweets_couchdb.xlsx')
+    worksheet = workbook.add_worksheet()
+    row=0
+    col=0
+    li=['ID','UID','Text','Created_At','City','Country','Co-ordinates','Sentiment']
+    for j in li:
+        worksheet.write(row, col, j)
+        col=col+1
+    row=row+1
+    for i in c:
+        col=0
+        for j in i:
+            worksheet.write(row, col, j)
+            col=col+1
+        row=row+1
+    workbook.close()
+emp_save_data()
 # Loading Data
-df = pd.read_excel('./static/data_files/tweets_couchdb.xlsx',sheet_name='Sheet1')
+df = pd.read_excel('./static/data_files/emptweets_couchdb.xlsx',sheet_name='Sheet1')
 aurin_unemployment_df = pd.read_excel(r'./static/data_files/UnemploymentRate_Cleaned.xlsx', sheet_name='UnemploymentRate')
 edu_df=pd.read_excel(r'./static/data_files/data_australia_edu.xlsx')
 

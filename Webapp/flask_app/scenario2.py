@@ -17,9 +17,41 @@ import re
 from textblob import TextBlob
 import plotly.graph_objects as go
 from wordcloud import WordCloud, STOPWORDS
+import couchdb
+import xlsxwriter
 
+# Loading Covid tweets
+def covid_save_data():
+    a=open('./ip.txt')
+    a=a.readline()
+    a=a.strip()
+    a='http://'+a+':5984/'
+    couchserver=couchdb.Server(url=a)
+    couchserver.resource.credentials=('admin','admin')
+    c=[]
+    b=couchserver['tweet']
+    for i in b.view('all_doc/covid'):
+        c=c+[i.key]
+    workbook = xlsxwriter.Workbook('./static/data_files/covidtweets_couchdb.xlsx')
+    worksheet = workbook.add_worksheet()
+    row=0
+    col=0
+    li=['ID','UID','Text','Created_At','City','Country','Co-ordinates','Sentiment']
+    for j in li:
+        worksheet.write(row, col, j)
+        col=col+1
+    row=row+1
+    for i in c:
+        col=0
+        for j in i:
+            worksheet.write(row, col, j)
+            col=col+1
+        row=row+1
+    workbook.close()
+covid_save_data()
 # Loading Data
-df = pd.read_excel('./static/data_files/tweets_couchdb.xlsx',sheet_name='Sheet1')
+df = pd.read_excel('./static/data_files/covidtweets_couchdb.xlsx',sheet_name='Sheet1')
+dft = pd.read_excel('./static/data_files/tweets_couchdb.xlsx',sheet_name='Sheet1')
 
 # Generating Word Cloud
 def generate_word_cloud():
@@ -43,7 +75,7 @@ def generate_scores():
 # Graph comparing total number of tweets to number of covid tweets based on city
 def city_comparison():    
     covid_df = df[df['Text'].str.contains('covid|vaccin', flags=re.IGNORECASE)]
-    tweets_by_city = df[['Text', 'City']].groupby(['City']).count()
+    tweets_by_city = dft[['Text', 'City']].groupby(['City']).count()
     tweets_by_city.rename(columns={'Text': 'No. of tweets'}, inplace=True)
     covid_tweets_by_city = covid_df[['Text', 'City']].groupby(['City']).count()
     covid_tweets_by_city.rename(columns={'Text': 'No. covid tweets'}, inplace=True)

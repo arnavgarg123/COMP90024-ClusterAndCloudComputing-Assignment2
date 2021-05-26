@@ -20,8 +20,8 @@ import plotly.express as px
 import json
 import plotly.graph_objects as go
 from scenario1 import city_tweets, income_sentiment, generate_pie_chart, generate_word_cloud_hashtags
-from scenario2 import generate_word_cloud, generate_scores, city_comparison
-from scenario3 import subjectivity_unemployment,education_unemployment,unemployment_polarity,generate_wordcloud_work_education
+from scenario2 import generate_word_cloud, generate_scores, city_comparison, covid_save_data
+from scenario3 import subjectivity_unemployment,education_unemployment,unemployment_polarity,generate_wordcloud_work_education, emp_save_data
 from plotly.subplots import make_subplots
 from fetch_couchdb_data import save_data,refresh_map_pt,convert_geojson
 
@@ -52,6 +52,7 @@ def wordcloud():
 
 @app.route('/sc2')
 def polarityscore():
+    covid_save_data()
     data = generate_scores()
 
     polarity_histogram = px.histogram(data, x="polarity", template='plotly_dark' , color_discrete_sequence=['indianred'])
@@ -96,6 +97,7 @@ def wordcloud_hashtags():
 
 @app.route('/sc3')
 def scenario3():
+    emp_save_data()
     final_work_tweets_df, final_aurin_unemployment_df = unemployment_polarity()
 
     fig = make_subplots(specs=[[{"secondary_y": True}]])
