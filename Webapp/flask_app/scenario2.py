@@ -48,7 +48,7 @@ def covid_save_data():
             col=col+1
         row=row+1
     workbook.close()
-covid_save_data()
+#covid_save_data()
 # Loading Data
 df = pd.read_excel('./static/data_files/covidtweets_couchdb.xlsx',sheet_name='Sheet1', engine='openpyxl')
 dft = pd.read_excel('./static/data_files/tweets_couchdb.xlsx',sheet_name='Sheet1', engine='openpyxl')
