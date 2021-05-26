@@ -50,7 +50,7 @@ def emp_save_data():
     workbook.close()
 emp_save_data()
 # Loading Data
-df = pd.read_excel('./static/data_files/emptweets_couchdb.xlsx',sheet_name='Sheet1')
+df = pd.read_excel('./static/data_files/emptweets_couchdb.xlsx',sheet_name='Sheet1', engine='openpyxl')
 aurin_unemployment_df = pd.read_excel(r'./static/data_files/UnemploymentRate_Cleaned.xlsx', sheet_name='UnemploymentRate', engine='openpyxl')
 edu_df=pd.read_excel(r'./static/data_files/data_australia_edu.xlsx', engine='openpyxl')
 
