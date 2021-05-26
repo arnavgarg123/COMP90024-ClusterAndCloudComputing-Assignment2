@@ -51,8 +51,8 @@ def emp_save_data():
 emp_save_data()
 # Loading Data
 df = pd.read_excel('./static/data_files/emptweets_couchdb.xlsx',sheet_name='Sheet1')
-aurin_unemployment_df = pd.read_excel(r'./static/data_files/UnemploymentRate_Cleaned.xlsx', sheet_name='UnemploymentRate')
-edu_df=pd.read_excel(r'./static/data_files/data_australia_edu.xlsx')
+aurin_unemployment_df = pd.read_excel(r'./static/data_files/UnemploymentRate_Cleaned.xlsx', sheet_name='UnemploymentRate', engine='openpyxl')
+edu_df=pd.read_excel(r'./static/data_files/data_australia_edu.xlsx', engine='openpyxl')
 
 # Graph showing sentiment vs unemployment of different cities
 def unemployment_polarity():
@@ -81,7 +81,7 @@ def generate_wordcloud_work_education():
 
 # Graph comparing subjectivity of tweets relating to unemployment on city level
 def subjectivity_unemployment():
-    unemp_df=pd.read_excel(r'./static/data_files/UnemploymentRate_Cleaned.xlsx')
+    unemp_df=pd.read_excel(r'./static/data_files/UnemploymentRate_Cleaned.xlsx', engine='openpyxl')
     cities_df = df[df['City'].str.contains('Melbourne|Perth|Brisbane|Sydney|Adelaide', flags=re.IGNORECASE)]
     cities_df['subjectivity'] = cities_df['Text'].apply(lambda x: TextBlob(x).sentiment.subjectivity)
     subjectivity_city=cities_df[['City', 'subjectivity']].groupby(['City']).mean()

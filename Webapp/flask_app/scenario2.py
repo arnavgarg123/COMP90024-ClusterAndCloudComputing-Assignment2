@@ -50,8 +50,8 @@ def covid_save_data():
     workbook.close()
 covid_save_data()
 # Loading Data
-df = pd.read_excel('./static/data_files/covidtweets_couchdb.xlsx',sheet_name='Sheet1')
-dft = pd.read_excel('./static/data_files/tweets_couchdb.xlsx',sheet_name='Sheet1')
+df = pd.read_excel('./static/data_files/covidtweets_couchdb.xlsx',sheet_name='Sheet1', engine='openpyxl')
+dft = pd.read_excel('./static/data_files/tweets_couchdb.xlsx',sheet_name='Sheet1', engine='openpyxl')
 
 # Generating Word Cloud
 def generate_word_cloud():

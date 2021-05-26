@@ -19,8 +19,8 @@ import plotly.graph_objects as go
 from wordcloud import WordCloud, STOPWORDS
 
 # Loading Data
-df = pd.read_excel('./static/data_files/tweets_couchdb.xlsx',sheet_name='Sheet1')
-income_df = pd.read_excel(r'./static/data_files/income.xlsx')
+df = pd.read_excel('./static/data_files/tweets_couchdb.xlsx',sheet_name='Sheet1', engine='openpyxl')
+income_df = pd.read_excel(r'./static/data_files/income.xlsx', engine='openpyxl')
 df_city=pd.read_csv(r"./static/data_files/aurin_city_stats.csv")
 
 # Generating PieChart
